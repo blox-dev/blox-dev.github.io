@@ -1,37 +1,68 @@
-## Welcome to GitHub Pages
+# Projects (Work in progress)
 
-You can use the [editor on GitHub](https://github.com/blox-dev/blox-dev.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
+1. [Personal projects](#personal-projects)
+2. [Small group projects (at most 3 team members)](#small-group-projects)
+3. [Big group projects (more than 3 team members)](#big-group-projects)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Personal projects
 
-### Markdown
+- Android weather alarm
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+**Language: Java/Android**
 
-```markdown
-Syntax highlighted code block
+[[Repository]](https://github.com/blox-dev/TPPA_Partial) Android application that allows the user to set alarms for different times of the day. On trigger, each alarm will display current weather details from the user's location.
 
-# Header 1
-## Header 2
-### Header 3
+- Scrabble
 
-- Bulleted
-- List
+**Language: Python 3**
 
-1. Numbered
-2. List
+[[Repository]](https://github.com/blox-dev/Python_Scrabble) Python implementation of a scrabble game using the tkinter graphic interface.
 
-**Bold** and _Italic_ and `Code` text
+- Binary decision diagram reduction
 
-[Link](url) and ![Image](src)
-```
+**Language: Haskell**
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[[Repository]](https://github.com/blox-dev/PF_Proiect) Small Haskell project which allows the user to interact with a [BDD](https://en.wikipedia.org/wiki/Binary_decision_diagram) of a given logic formula.
 
-### Jekyll Themes
+- Recipe box
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/blox-dev/blox-dev.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+**Language: Python**
 
-### Support or Contact
+**Frameworks used: Pytorch/Transformers**
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+[[Repository]](https://github.com/blox-dev/recipe-box-transformers) 
+Creates and trains a [GPT2](https://en.wikipedia.org/wiki/GPT-2) model using the [transformers](https://github.com/huggingface/transformers) library in Pytorch popular food recipes scraped from the internet.
+
+- Solitaire (Work in progress)
+
+**Language: C++**
+
+**Libraries used: SDL2**
+
+C++ implementation of the Solitaire game (not _THE_ solitaire, [the other one](https://en.wikipedia.org/wiki/Peg_solitaire)), using the SDL2 library and OpenGL.
+
+## Small group projects
+
+- RealQuest
+
+**Language: PHP/HTML/CSS/JavaScript**
+
+[[Repository]](https://github.com/blox-dev/RealQuest) 
+[[Live version]](https://realquest.firststef.repl.co/)
+Multiplayer arcade game which takes place in your neighborhood! Using the MapBox and several time and weather APIs, the player fights monsters in his own neighborhood and competes for the highest score!
+
+- Breakout Neural Network
+
+**Language: Python**
+
+**Frameworks used: TensorFlow**
+
+[[Repository]](https://github.com/blox-dev/Breakout-DQN) This project uses the Tensorflow framework to implement a Deep Q-Learning Network for the popular Atari game, Breakout.
+
+## Big group projects
+
+- Humanity against cards
+
+**Language: PHP/HTML/CSS/Javascript**
+
+[[Repository]](https://github.com/blox-dev/HumanityAgainstCards) A "cards against humanity" clone where humans can play against one or more AI oponents to see whether humor is as subjective as we think!
