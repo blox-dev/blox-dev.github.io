@@ -24,10 +24,10 @@
 	- [[Repository]](https://github.com/blox-dev/recipe-box-transformers) 
 Creates and trains a [GPT2](https://en.wikipedia.org/wiki/GPT-2) model using the [transformers](https://github.com/huggingface/transformers) library in Pytorch popular food recipes scraped from the internet.
 
-- **Solitaire (Work in progress)**
+- **Solitaire**
 	- **Language: C++**
 	- **Libraries used: SDL2**
-	- C++ implementation of the Solitaire board game (not _THE_ solitaire, [the other one](https://en.wikipedia.org/wiki/Peg_solitaire)), using the SDL2 library and OpenGL.
+	- [[Repository]](https://github.com/blox-dev/Solitaire) C++ implementation of the Solitaire board game (not _THE_ solitaire, [the other one](https://en.wikipedia.org/wiki/Peg_solitaire)), using the SDL2 library and OpenGL.
 
 ## Small group projects
 
