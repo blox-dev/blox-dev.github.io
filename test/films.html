@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <style>
+      .img_wrap {
+        position: relative;
+      }
+
+      .img_description {
+        position: absolute;
+        top: 5%;
+        bottom: 5%;
+        left: 5%;
+        right: 5%;
+        background: rgba(29, 106, 154, 0.8);
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+
+        transition: opacity 0.4s, visibility 0.4s;
+      }
+
+      .img_wrap:hover .img_description {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="display-3 text-center">Films</div>
+
+      <div class="row">
+        <div class="img_wrap col-12 col-md-6 py-2">
+          <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+            <source type="video/webm" src="bear.mp4">
+          </video>
+          <p class="img_description my-auto fs-2" onclick="this.previousSibling.previousSibling.play(); this.style.display='none';">Click once to play video.</p>
+        </div>
+
+        <div class="img_wrap col-12 col-md-6 py-2">
+          <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+            <source type="video/webm" src="bear.mp4">
+          </video>
+          <p class="img_description my-auto fs-2" onclick="this.style.display='none';">Click twice to play video.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="img_wrap col-12 col-md-6 py-2">
+            <img src="video-placeholder.png" style="width:100%;height:100%;" />
+            <p class="img_description my-auto fs-2">Sample hover</p>
+        </div>
+
+        <div class="img_wrap col-12 col-md-6 py-2">
+          <img src="video-placeholder.png" style="width:100%;height:100%;" />
+          <p class="img_description my-auto fs-2">Sample hover</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="img_wrap col-12 col-md-6 py-2">
+            <img src="video-placeholder.png" style="width:100%;height:100%;" />
+            <p class="img_description my-auto fs-2">Sample hover</p>
+        </div>
+
+        <div class="img_wrap col-12 col-md-6 py-2">
+          <img src="video-placeholder.png" style="width:100%;height:100%;" />
+          <p class="img_description my-auto fs-2">Sample hover</p>
+        </div>
+      </div>
+
+       <!-- <iframe src="https://player.vimeo.com/video/347119375" width="640" height="360" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe> -->
+    </div>
+  </body>
+</html>
