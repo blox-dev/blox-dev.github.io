@@ -8,14 +8,15 @@
     <style>
       .img_wrap {
         position: relative;
+        /* border: #efefef 1px solid; */
       }
 
       .img_description {
         position: absolute;
-        top: 5%;
-        bottom: 5%;
-        left: 5%;
-        right: 5%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         background: rgba(29, 106, 154, 0.8);
         color: #fff;
         visibility: hidden;
@@ -35,19 +36,23 @@
       <div class="display-3 text-center">Films</div>
 
       <div class="row">
-        <div class="img_wrap col-12 col-md-6 py-2">
+        <div class="col-12 col-md-6 py-2">
+          <div class="img_wrap">
           <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
             <source type="video/webm" src="bear.mp4">
           </video>
-          <p class="img_description my-auto fs-2" onclick="this.previousSibling.previousSibling.play(); this.style.display='none';">Click once to play video.</p>
+          <p class="img_description my-auto fs-2" onclick="this.previousSibling.previousSibling.play(); this.previousSibling.previousSibling.controls = true; this.style.display='none';">Click once to play video.</p>
         </div>
+      </div>
 
-        <div class="img_wrap col-12 col-md-6 py-2">
+        <div class="col-12 col-md-6 py-2">
+        <div class="img_wrap">
           <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
             <source type="video/webm" src="bear.mp4">
           </video>
           <p class="img_description my-auto fs-2" onclick="this.style.display='none';">Click twice to play video.</p>
         </div>
+      </div>
       </div>
 
       <div class="row">
