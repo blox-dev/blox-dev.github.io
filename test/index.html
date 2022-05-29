@@ -66,14 +66,14 @@
           <a class="div-link" href="films.html"></a>
         </div>
         <div class="position-absolute" onmouseover="over(this.childNodes[1])" onmouseleave="leave(this.childNodes[1])" style="width:230px; height:230px; right:50%; top:50%;">
-          <img class="h-100 w-100" src="projects_1.gif">
+          <img class="h-100 w-100" src="projects_1s.gif">
           <a class="div-link" href="projects.html"></a>
         </div>
       </div>
     </div>
     <script>
       let xd = document.createElement("img");
-      xd.src = "projects_1.gif";
+      xd.src = "projects_1s.gif";
       xd.src = "projects_2.gif";
       xd.src = "projects_3.gif";
       xd.src = "";
@@ -82,7 +82,7 @@
       function over(i) {
           changing = true;
 
-          i.src="projects_2_loop.gif";
+          i.src="projects_2.gif";
           
           setTimeout(()=>{
             if(changing)
@@ -91,7 +91,7 @@
       }
       function leave(i){
         changing = false;
-        i.src="projects_1.gif";
+        i.src="projects_1s.gif";
     }
     </script>
   </body>
