@@ -20,7 +20,7 @@
         
       }
       .main-button:hover {
-        transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
       }
 
       .anim {
@@ -53,22 +53,46 @@
       <div style="height: 20%;"class="display-1 text-center pt-5">Libelopia</div>
 
       <div class="row position-relative" style="height:80%;background-color:#efefef">
-        <div class="main-button position-absolute" style="width:12%; height:30%; right:50px; top:50px; background:url(c_test1_workshops.gif); background-size: 100% 100%;">
+        <div class="position-absolute" style="width:12%; height:30%; right:50px; top:50px; background:url(c_test1_workshops.gif); background-size: 100% 100%;">
           <a class="div-link" href="workshops.html"></a>
         </div>
-        <div class="anim position-absolute" style="width:200px; height:200px; left:50px; top:50px; background:url(c_test1_about.gif); background-size: 100% 100%;">
+        <div class="position-absolute" style="width:200px; height:200px; left:50px; top:50px; background:url(c_test1_about.gif); background-size: 100% 100%;">
           <a class="div-link" href="about.html"></a>
         </div>
-        <div class="main-button position-absolute" style="width:200px; height:200px; right:50px; bottom:50px; background:url(c_test1_contact.gif); background-size: 100% 100%;">
+        <div class="position-absolute" style="width:200px; height:200px; right:50px; bottom:50px; background:url(c_test1_contact.gif); background-size: 100% 100%;">
           <a class="div-link" href="contact.html"></a>
         </div>
-        <div class="main-button position-absolute" style="width:200px; height:200px; left:50px; bottom:50px; background:url(c_test1_films.gif); background-size: 100% 100%;">
+        <div class="position-absolute" style="width:200px; height:200px; left:50px; bottom:50px; background:url(c_test1_films.gif); background-size: 100% 100%;">
           <a class="div-link" href="films.html"></a>
         </div>
-        <div class="anim-2 position-absolute" style="width:200px; height:200px; right:50%; top:50%; background:url(c_test1_projects.gif); background-size: 100% 100%;">
+        <div class="position-absolute" onmouseover="over(this.childNodes[1])" onmouseleave="leave(this.childNodes[1])" style="width:230px; height:230px; right:50%; top:50%;">
+          <img class="h-100 w-100" src="projects_1.gif">
           <a class="div-link" href="projects.html"></a>
         </div>
       </div>
     </div>
+    <script>
+      let xd = document.createElement("img");
+      xd.src = "projects_1.gif";
+      xd.src = "projects_2.gif";
+      xd.src = "projects_3.gif";
+      xd.src = "";
+
+      var changing = false;
+      function over(i) {
+          changing = true;
+
+          i.src="projects_2_loop.gif";
+          
+          setTimeout(()=>{
+            if(changing)
+              i.src="projects_3.gif"
+            }, 300);
+      }
+      function leave(i){
+        changing = false;
+        i.src="projects_1.gif";
+    }
+    </script>
   </body>
 </html>
