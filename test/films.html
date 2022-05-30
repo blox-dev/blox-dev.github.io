@@ -8,6 +8,8 @@
     <style>
       .img_wrap {
         position: relative;
+        width: 100%;
+        height: 100%;
         /* border: #efefef 1px solid; */
       }
 
@@ -17,7 +19,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(29, 106, 154, 0.8);
+        background: rgba(0, 0, 0, 0.8);
         color: #fff;
         visibility: hidden;
         opacity: 0;
@@ -31,55 +33,100 @@
       }
     </style>
   </head>
-  <body>
-    <div class="container">
+  <body style="background-image: url(img/texture.png); background-repeat:no-repeat; background-attachment:fixed;">
+    <div class="container-fluid">
       <div class="display-3 text-center">Films</div>
 
-      <div class="row">
-        <div class="col-12 col-md-6 py-2">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-6 py-2 text-center">
           <div class="img_wrap">
-          <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
-            <source type="video/webm" src="bear.mp4">
-          </video>
-          <p class="img_description my-auto fs-2" onclick="this.previousSibling.previousSibling.play(); this.previousSibling.previousSibling.controls = true; this.style.display='none';">Click once to play video.</p>
+            <video style="height:100%;width:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="play_video(this);">Click once to play video.</p>
+          </div>
         </div>
+
+        <div class="col-12 col-lg-6 py-2 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="play_video(this);">Click twice to play video.</p>
+          </div>
+        </div>
+        
       </div>
 
-        <div class="col-12 col-md-6 py-2">
-        <div class="img_wrap">
-          <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
-            <source type="video/webm" src="bear.mp4">
-          </video>
-          <p class="img_description my-auto fs-2" onclick="this.style.display='none';">Click twice to play video.</p>
+      <div class="row justify-content-center">
+       
+        <div class="col-12 col-lg-6 py-2 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="play_video(this);">Click once to play video.</p>
+          </div>
         </div>
+
+        <div class="col-12 col-lg-6 py-2 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="this.style.display='none';">Click twice to play video.</p>
+          </div>
+        </div>
+
       </div>
-      </div>
 
-      <div class="row">
-        <div class="img_wrap col-12 col-md-6 py-2">
-            <img src="video-placeholder.png" style="width:100%;height:100%;" />
-            <p class="img_description my-auto fs-2">Sample hover</p>
+      <div class="row justify-content-center">
+       
+        <div class="col-12 col-lg-6 py-2 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="play_video(this);">Click once to play video.</p>
+          </div>
         </div>
 
-        <div class="img_wrap col-12 col-md-6 py-2">
-          <img src="video-placeholder.png" style="width:100%;height:100%;" />
-          <p class="img_description my-auto fs-2">Sample hover</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="img_wrap col-12 col-md-6 py-2">
-            <img src="video-placeholder.png" style="width:100%;height:100%;" />
-            <p class="img_description my-auto fs-2">Sample hover</p>
+        <div class="col-12 col-lg-6 py-2 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="video-placeholder.png" height="200" preload="none" onclick="this.play(); this.controls = true;">
+              <source type="video/webm" src="bear.mp4">
+            </video>
+            <p class="img_description my-auto fs-2" onclick="this.style.display='none';">Click twice to play video.</p>
+          </div>
         </div>
 
-        <div class="img_wrap col-12 col-md-6 py-2">
-          <img src="video-placeholder.png" style="width:100%;height:100%;" />
-          <p class="img_description my-auto fs-2">Sample hover</p>
-        </div>
       </div>
 
        <!-- <iframe src="https://player.vimeo.com/video/347119375" width="640" height="360" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe> -->
     </div>
+    <script>
+      function play_video(img) {
+        parent_stuffs(img);
+        const vid = img.previousSibling.previousSibling;
+        vid.play();
+        vid.controls = true;
+        img.style.display='none';
+      };
+      function parent_stuffs(img) {
+        const img_wrap = img.parentNode;
+        img_wrap.style.height='100%';
+
+        console.log(img.parentNode.parentNode);
+        const div = img.parentNode.parentNode;
+
+        //always disable
+        div.classList.toggle('py-2');
+        div.classList.toggle('col-lg-6');
+        
+        div.style.height = '135vh';
+        // div.style.width = '70%';
+        div.style.paddingBottom = '50vh';
+      }
+    </script>
   </body>
 </html>

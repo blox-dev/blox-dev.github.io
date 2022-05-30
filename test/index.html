@@ -41,57 +41,71 @@
       }
 
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
     <title>Libelopia</title>
   </head>
   <body class="w-100 h-100">
     <div class="container-fluid w-100 h-100">
-      <div style="height: 20%;"class="display-1 text-center pt-5">Libelopia</div>
+      <div style="height: 20%;" class="display-1 text-center pt-3">Libelopia</div>
 
       <div class="row position-relative" style="height:80%;background-color:#efefef">
-        <div class="position-absolute" style="width:12%; height:30%; right:50px; top:50px; background:url(c_test1_workshops.gif); background-size: 100% 100%;">
-          <a class="div-link" href="workshops.html"></a>
-        </div>
-        <div class="position-absolute" style="width:200px; height:200px; left:50px; top:50px; background:url(c_test1_about.gif); background-size: 100% 100%;">
+
+        <!-- about width:364px; height:326px;-->
+        <div class="position-absolute d-block d-md-block" onmouseover="over(this.childNodes[1], 'about', 300)" onmouseleave="leave(this.childNodes[1], 'about')" style="width:15.55%; height:30.8%; left:20%; top:10%;">
+          <img class="h-100 w-100" src="img/about_1s.gif">
           <a class="div-link" href="about.html"></a>
         </div>
-        <div class="position-absolute" style="width:200px; height:200px; right:50px; bottom:50px; background:url(c_test1_contact.gif); background-size: 100% 100%;">
+
+        <!-- contact width:455px; height:398px;-->
+        <div class="position-absolute d-block d-md-block" onmouseover="over(this.childNodes[1], 'contact', 300)" onmouseleave="leave(this.childNodes[1], 'contact')" style="width:16.7%; height:35.7%;  left:60%;top: 60%;">
+          <img class="h-100 w-100" src="img/contact_1s.gif">
           <a class="div-link" href="contact.html"></a>
         </div>
-        <div class="position-absolute" style="width:200px; height:200px; left:50px; bottom:50px; background:url(c_test1_films.gif); background-size: 100% 100%;">
+
+        <!-- films width:434px; height:434px;-->
+        <div class="position-absolute d-block d-md-block" onmouseover="over(this.childNodes[1], 'films', 300)" onmouseleave="leave(this.childNodes[1], 'films')" style="width:14.9%; height:40.4%; top:30%; left:30%;">
+          <img class="h-100 w-100" src="img/films_1s.gif">
           <a class="div-link" href="films.html"></a>
         </div>
-        <div class="position-absolute" onmouseover="over(this.childNodes[1])" onmouseleave="leave(this.childNodes[1])" style="width:230px; height:230px; right:50%; top:50%;">
-          <img class="h-100 w-100" src="projects_1s.gif">
+
+        <!-- projects width:571px; height:597px;-->
+        <div class="position-absolute d-block d-md-block" onmouseover="over(this.childNodes[1], 'projects', 300)" onmouseleave="leave(this.childNodes[1], 'projects')" style="width:20.8%; height:55.3%; left:40%; top:5%;">
+          <img class="h-100 w-100" src="img/projects_1s.gif">
           <a class="div-link" href="projects.html"></a>
         </div>
+
+        <!-- workshops width:523px; height:496px;-->
+        <div class="position-absolute d-block d-md-block" onmouseover="over(this.childNodes[1], 'workshops', 300)" onmouseleave="leave(this.childNodes[1], 'workshops')" style="width:22.89%; height:55.6%; left:39%; top:48%;">
+          <img class="h-100 w-100" src="img/workshops_1s.gif">
+          <a class="div-link" href="workshops.html"></a>
+        </div>
+
       </div>
     </div>
     <script>
-      let xd = document.createElement("img");
-      xd.src = "projects_1s.gif";
-      xd.src = "projects_2.gif";
-      xd.src = "projects_3.gif";
-      xd.src = "";
+      // let xd = document.createElement("img");
+      // xd.src = "img/projects_1s.gif";
+      // xd.src = "img/projects_2_loop.gif";
+      // xd.src = "img/projects_3.gif";
+      // xd.src = "";
 
-      var changing = false;
-      function over(i) {
-          changing = true;
+      var changing = {};
 
-          i.src="projects_2.gif";
+      function over(img, trunc, time) {
+          changing[trunc] = true;
+
+          img.src="img/"+trunc +"_2.gif";
           
           setTimeout(()=>{
-            if(changing)
-              i.src="projects_3.gif"
-            }, 300);
+            if(changing[trunc])
+              img.src="img/"+trunc+"_3.gif";
+            }, time);
       }
-      function leave(i){
-        changing = false;
-        i.src="projects_1s.gif";
+      function leave(img,trunc){
+        changing[trunc] = false;
+        img.src="img/"+trunc+"_1s.gif";
     }
     </script>
   </body>
