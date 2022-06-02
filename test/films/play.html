@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="w-100 h-100">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="./../img/libelopia.ico">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <style>
+      .img_wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        /* border: #efefef 1px solid; */
+      }
+
+      .img_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+
+        transition: opacity 0.4s, visibility 0.4s;
+      }
+
+      .img_wrap:hover .img_description {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+
+    <title>Movies - by Laura Pop</title>
+  </head>
+  <body style="background-image: url(./../img/texture.png); background-repeat:no-repeat; background-attachment:fixed;" class="w-100 h-100">
+    <div class="container-fluid w-100 h-100">
+      <div class="h-100 w-100 text-center">
+        <video id="main-vid" class="h-100 w-100" poster="./../video-placeholder.png" controls>
+            <source id="main-source" type="video/webm">
+        </video>
+      </div>
+    </div>
+    <script>
+      console.log(window.location.search);
+      
+      var parts = window.location.search.substr(1).split("&");
+      
+      var $_GET = {};
+      for (var i = 0; i < parts.length; i++) {
+          var temp = parts[i].split("=");
+          $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+      }
+
+      switch ($_GET['film']) {
+        case 'atriums_ventricles': {
+          document.title = 'Atriums, ventricles - by Laura Pop';
+          document.getElementById('main-source').src="./Miroir_teaser_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          break;
+        }
+        case 'miroir': {
+          document.title = 'Miroir - by Laura Pop';
+          document.getElementById('main-source').src="./Miroir_teaser_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          break;
+        }
+        case 'monster': {
+          document.title = 'Monster - by Laura Pop';
+          document.getElementById('main-source').src="./Miroir_teaser_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          break;
+        }
+        case 'moarte': {
+          document.title = 'Moarte - by Laura Pop';
+          document.getElementById('main-source').src="./Moarte_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          break;
+        }
+        default: window.location.href = './../films.html';
+      }
+    </script>
+  </body>
+</html>
