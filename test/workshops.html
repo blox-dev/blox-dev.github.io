@@ -9,7 +9,46 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <style>
+      @font-face { font-family: Grotesk; src: url('fonts/hk-grotesk.regular.otf'); }
 
+      * {
+      font-family: Grotesk;
+      }
+
+      .img_wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .img_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+        cursor:pointer;
+
+        transition: opacity 0.4s, visibility 0.4s;
+      }
+
+      .img_wrap:hover .img_description {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      p {
+        font-size: 20px;
+        font-size: 2vmin;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    </style>
     <title>Workshops</title>
   </head>
   <body style="background-image: url(img/texture.png); background-repeat:no-repeat; background-attachment:fixed;">
@@ -17,9 +56,162 @@
       <div style="height: 20vh;" class="display-1 text-center">
           <img src="img/titles/workshops.png" alt="WORKSHOPS" class="h-100 img-fluid mx-auto d-block">
       </div>
+
+      <!-- empty space -->
+      <div style="height:10vh"></div>
+
+      <div class="row justify-content-center">
+
+        <!-- ABIFF -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="workshops/abiff/thumbnail_abiff.png" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('abiff');">
+              <h2>ABIFF</h2>
+
+              <div class="d-inline d-lg-none d-xl-inline"><br></div>
+              
+              <p>Animation workshop for students developed during the Animation Bucharest International Film Festival.</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              
+              <p>Coordinator: Laura Pop</p>
+              
+              <div class="d-none d-md-inline"><br></div>
+
+              <p>Alexandra Cărăvan: "Participating at the 2021 animation masterclass was truly a great experience. Even though we only had a couple of days to understand how animation works, Laura provided us with all the useful resources and help we needed to create a great result in the end.</p>
+              <p>We worked in a relaxed environment but the professional schedule was able to keep us focused. Not only that, but the whole weekend was extremely pleasant and fun and we tied friendships among creative people that last to this day."</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              
+              <p>2021</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="display-1 text-center">
+        ANIMATION INCUBATOR
+      </div>
+
+      <div class="row justify-content-center">
+
+        <!-- ANIMATION INCUBATOR GENERAL -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="workshops/animation_incubator/thumbnail_animation_incubator_general.jpg" preload="none">
+            </video>
+            <div style="cursor: default;" class="img_description my-auto">
+              <h2>ANIMATION INCUBATOR</h2>
+              <br>
+              <p>Animation workshop for high school students organised by Animest - Bucharest International Film Festival.</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Coordinators: Paul Mureșan, Laura Pop, Cristian Radu</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Miriam Arvunescu: “Laura Pop was my mentor during the Incubator. I am very grateful to her because thanks to her I was able to thoroughly study theoretical notions about animation and at the same time apply them during the workshop. I also used the materials she provided as a guide for my end-of-high school project. Laura was also a moral help, being understanding and always giving out good advice which made us feel comfortable!”</p>
+
+              <div class="d-none d-md-inline"><br></div>
+
+              <p>Mihaela Stetco: “Laura helped me eliminate some preconceptions which were embedded in my head and because of which I felt as if animation was something I would never have access to. The experience with her at the Animation Incubator, where she was my mentor, made me gain confidence in my ideas and put them into practice, however unachievable they might seem.”</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>2020, 2021</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ANIMATION INCUBATOR SHOWREEL 2021 -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="workshops/animation_incubator/thumbnail_animation_incubator_showreel_2021.png" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('animation_incubator_showreel_2021');">
+              <h2>ANIMATION INCUBATOR SHOWREEL 2021</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANIMATION INCUBATOR MAKING OF 2020 -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="workshops/animation_incubator/thumbnail_making_of_animation_incubator_2020.jpg" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('animation_incubator_making_of_2020');">
+              <h2>ANIMATION INCUBATOR MAKING OF 2020</h2>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="display-1 text-center">
+        POIENARII DE ARGEȘ
+      </div>
+
+      <div class="row justify-content-center">
+
+        <!-- POIENARII DE ARGES GENERAL -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="workshops/poienarii_de_arges/thumbnail_poienarii_de_arges_general.jpg" preload="none">
+            </video>
+            <div style="cursor: default;" class="img_description my-auto">
+              <h2>POIENARII DE ARGEȘ</h2>
+              <br>
+              <p>Animation workshops for primary school children from Poienarii de Argeș organised by Teach for Romania & Animest - Bucharest International Film Festival.</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Coordinator: Laura Pop</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Ioana Ghiga: “The animation workshops organised by Laura were a delight and an unhoped opportunity for my pupils, some of them passionate about drawing, to drive their passion forward by working in a team. Laura guided them through all the necessary steps towards the final product and its joy with her tenderness, her pedagogical qualities, and her determination.”</p>
+
+              <div class="d-none d-md-inline"><br></div>
+
+              <p>2020</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- POIENARII DE ARGES 1 -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;cursor:pointer;" onclick="go_to_video('poienarii_de_arges_1');" poster="workshops/poienarii_de_arges/thumbnail_poienarii_de_arges_1.jpg" preload="none">
+            </video>
+          </div>
+        </div>
+
+        <!-- POIENARII DE ARGES 2 -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;cursor:pointer;" onclick="go_to_video('poienarii_de_arges_2');" poster="workshops/poienarii_de_arges/thumbnail_poienarii_de_arges_2.jpg" preload="none">
+            </video>
+          </div>
+        </div>
+        
+      </div>
+
     </div>
     
     <script>
+      workshops = {
+        'abiff': 'abiff/film_abiff.mp4',
+        'animation_incubator_showreel_2021': 'animation_incubator/animation_incubator_showreel_2021.mp4',
+        'animation_incubator_making_of_2020': 'animation_incubator/animation_incubator_making_of_2020.mp4',
+        'poienarii_de_arges_1': 'poienarii_de_arges/poienarii_de_arges_1.mp4',
+        'poienarii_de_arges_2': 'poienarii_de_arges/poienarii_de_arges_2.mp4'
+      }
+
+      function go_to_video(workshop) {
+        if(Object.keys(workshops).includes(workshop))
+          window.location.href = "workshops/" + workshops[workshop];
+      }
     </script>
   </body>
 </html>

@@ -10,6 +10,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
+    <style>
+      @font-face { font-family: Grotesk; src: url('fonts/hk-grotesk.regular.otf'); }
+
+      * {
+      font-family: Grotesk;
+      
+      }
+
+      .img_wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .img_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+        cursor:pointer;
+
+        transition: opacity 0.4s, visibility 0.4s;
+      }
+
+      .img_wrap:hover .img_description {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      p {
+        font-size: 20px;
+        font-size: 2vmin;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    </style>
     <title>Projects</title>
   </head>
   <body style="background-image: url(img/texture.png); background-repeat:no-repeat; background-attachment:fixed;">
@@ -17,9 +58,127 @@
       <div style="height: 20vh;" class="display-1 text-center">
           <img src="img/titles/projects.png" alt="PROJECTS" class="h-100 img-fluid mx-auto d-block">
       </div>
+
+      <!-- empty space -->
+      <div style="height:10vh"></div>
+
+      <div class="row justify-content-center">
+
+        <!-- No Rhythm -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="projects/no_rhythm/thumbnail_no_rhythm.png" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('no_rhythm');">
+              <h2>NO RHYTHM</h2>
+
+              <br>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Censorship -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="projects/censorship/thumbnail_censorship.png" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('censorship');">
+              <h2>CENSORSHIP</h2>
+              <br>
+              <p>A story about the communist regime.</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Writer, director, animator: Laura Pop</p>
+              <p>Producer: Cristina Modreanu</p>
+              <p>Musician & sound designer: Flora Pop</p>
+              <p>Mixing artist: Mara Mărăcinescu</p>
+              <p>Editor: Diana Rădulescu</p>
+              <p>Textures and compositing artist: Adèle Coulloudon</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Commissioned by Teatrul ca Rezistență (Asociația Timișoara 2021 - Capitală Europeană a Culturii, part of Heritage Contact Zone), co-financed by Creative Europe with the help of Primăria Municipiului Timișoara and Consiliul Local, through the project Timișoara, Capitală Europeană a Culturii 2021</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>2020</p>
+
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="display-1 text-center">
+        FILM O'CLOCK
+      </div>
+      
+      <div class="row justify-content-center">
+       
+        <!-- Film O Clock general -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="width:100%;height:100%;" poster="projects/film_o_clock/thumbnail_film_o_clock_general.jpg" preload="none">
+            </video>
+            <div style="cursor: default;" class="img_description my-auto">
+              <h2>FILM O'CLOCK</h2>
+              <br>
+              <p>Trailer and teaser for Film O'Clock International Film Festival</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+              
+              <p>Conceptual artist and animator: Laura Pop</p>
+              <p>Sound design: Ann Kuznetzova</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+              
+              <p><b>SELECTIONS</b></p>
+              <p>Commissioned by Film O'Clock International Film Festival</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p>2020</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Film O Clock trailer -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="height:100%;width:100%;" poster="projects/film_o_clock/thumbnail_film_o_clock_trailer.jpg" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('film_o_clock_trailer');">
+              <h2>FILM O'CLOCK TRAILER</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Film O Clock teaser -->
+        <div class="col-12 col-lg-8 py-5 text-center">
+          <div class="img_wrap">
+            <video style="height:100%;width:100%;" poster="projects/film_o_clock/thumbnail_film_o_clock_teaser.jpg" preload="none">
+            </video>
+            <div class="img_description my-auto" onclick="go_to_video('film_o_clock_teaser');">
+              <h2>FILM O'CLOCK TEASER</h2>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    
+
     <script>
+      projects = {
+        // 'no_rhythm': 'no_rhythm/???',
+        'censorship': 'censorship/Censorship - by Laura Pop.mp4',
+        'film_o_clock_trailer': 'film_o_clock/Film OClock - trailer by Laura Pop.mp4',
+        'film_o_clock_teaser': 'film_o_clock/Film OClock - teaser by Laura Pop.mp4'
+      }
+
+      function go_to_video(project) {
+        if(Object.keys(projects).includes(project))
+          window.location.href = "projects/" + projects[project];
+      }
     </script>
   </body>
 </html>

@@ -10,6 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <style>
+      @font-face { font-family: Grotesk; src: url('fonts/hk-grotesk.regular.otf'); }
+
+      * {
+      font-family: Grotesk;
+      }
+
       .img_wrap {
         position: relative;
         width: 100%;
@@ -26,6 +32,7 @@
         color: #fff;
         visibility: hidden;
         opacity: 0;
+        cursor:pointer;
 
         transition: opacity 0.4s, visibility 0.4s;
       }
@@ -96,7 +103,7 @@
           <div class="img_wrap">
             <video style="width:100%;height:100%;" poster="films/thumbnail_Death_LauraPop.png" preload="none">
             </video>
-            <div class="img_description my-auto" onclick="go_to_video('moarte');">
+            <div class="img_description my-auto" onclick="go_to_video('death');">
               <h2>DEATH</h2>
               <br>
               <p>How do we look at death and how does death look at us?</p>
@@ -126,7 +133,7 @@
         <!-- miroir -->
         <div class="col-12 col-lg-8 py-5 text-center">
           <div class="img_wrap">
-            <video style="width:100%;height:100%;" poster="video-placeholder.png" preload="none">
+            <video style="width:100%;height:100%;" poster="films/thumbnail_Miroir_LauraPop.png" preload="none">
             </video>
             <div class="img_description my-auto" onclick="go_to_video('miroir');">
               <h2>MIROIR</h2>
@@ -142,7 +149,7 @@
               <div class="d-none d-xl-inline"><br></div>
               
               <p><b>SELECTIONS</b></p>
-              <p>Filem'On International Film Festival for Young Audiences, Animaevka, Festival du Court en Armagnac, Canlandıranlar Film Festival, Sedicicorto Forli International Film Festival, Flipbook Film Festival, Chaniartoon - International Comic & Animation Festival, Open Air FilmFest Weiterstadt, Animare International Animated Short Film Festival, Le Court en dit Long, Moldova Film Festival</p>
+              <p>Filem'On International Film Festival for Young Audiences, Animaevka, Festival du Court en Armagnac, Canlandiranlar Film Festival, Sedicicorto Forli International Film Festival, Flipbook Film Festival, Chaniartoon - International Comic & Animation Festival, Open Air FilmFest Weiterstadt, Animare International Animated Short Film Festival, Le Court en dit Long, Moldova Film Festival</p>
               
               <div class="d-none d-xl-inline"><br></div>
 
@@ -175,7 +182,7 @@
               <div class="d-none d-xl-inline"><br></div>
 
               <p><b>AWARDS</b></p>
-              <p>Grand Prix & Special Mention (TIFF, local competition), Best Romanian Short (Animest), Jury's Special Prize (DaKINO), Best Animation Film (Film de Piatra), ‘Ion Truică' Award for Romanian Animation Film (CineMAiubit), Special Mention for Animation (Early Bird International Student Film Festival), Best Animation Film (Movie Screen Pro), Student Jury's Prize (ClassFest), Audience Award (Romanian Days in Bremen, children's competition), nomination at the UCIN Awards for Animation Film Award</p>
+              <p>Grand Prix & Special Mention (TIFF, local competition), Best Romanian Short (Animest), Jury's Special Prize (DaKINO), Best Animation Film (Film de Piatra), 'Ion Truică' Award for Romanian Animation Film (CineMAiubit), Special Mention for Animation (Early Bird International Student Film Festival), Best Animation Film (Movie Screen Pro), Student Jury's Prize (ClassFest), Audience Award (Romanian Days in Bremen, children's competition), nomination at the UCIN Awards for Animation Film Award</p>
 
               <div class="d-none d-xl-inline"><br></div>
 
@@ -188,33 +195,16 @@
       </div>
     </div>
     <script>
-      // function play_video(img) {
-      //   parent_stuffs(img);
-      //   const vid = img.previousSibling.previousSibling;
-      //   vid.play();
-      //   vid.controls = true;
-      //   img.style.display='none';
+      films = {
+        'atriums_ventricles': 'Atriums, ventricles - trailer by Laura Pop.mp4',
+        'miroir': 'Miroir - teaser by Laura Pop.mp4',
+        'monster': 'Monster - by Laura Pop.mp4',
+        'death': 'Death - by Laura Pop.mp4'
+      }
 
-      //   vid.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-      // };
-      // function parent_stuffs(img) {
-      //   const img_wrap = img.parentNode;
-      //   img_wrap.style.height='100%';
-
-      //   console.log(img.parentNode.parentNode);
-      //   const div = img.parentNode.parentNode;
-
-      //   //always disable
-      //   div.classList.toggle('py-2');
-      //   div.classList.toggle('col-lg-6');
-        
-      //   div.style.height = '135vh';
-      //   // div.style.width = '70%';
-      //   div.style.paddingBottom = '50vh';
-      // }
-
-      function go_to_video(page) {
-        window.location.href = "films/play.html?film=" + page;
+      function go_to_video(film) {
+        if(Object.keys(films).includes(film))
+          window.location.href = "films/" + films[film];
       }
     </script>
   </body>
