@@ -13,12 +13,15 @@
     <title>About</title>
 
     <style>
+      /* @font-face { font-family: Grotesk; src: url('fonts/typo-grotesk.bold.otf'); } */
+
      .img-border {
       border-radius: 50%;
-      background-color: black;
-      border-style: solid;
-      border-width: 2px;
      } 
+
+     /* * {
+       font-family: Grotesk;
+     } */
     </style>
   </head>
   <body style="background-image: url(img/texture.png); background-repeat:no-repeat; background-attachment:fixed;">
@@ -30,10 +33,15 @@
       <!-- empty space -->
       <div style="height:5vh"></div>
 
-      <div class="w-75 text-center mx-auto" style="background-color:whitesmoke">
-        <h4>Libelopia is an animation studio founded in 2020 by Laura Pop, specialising in art direction, 2D animation, and animation workshops.</h4>
-        <h4>We produce short films for NGOs, film festivals, musicians, we develop our own animated shorts, and we provide mentorship for children and adults.</h4>
-        <h4>We like to capture the complexity in simple things and the multitude of perspectives that surround us.</h4>
+      <div class="w-50 text-center mx-auto" style="background-color:whitesmoke">
+        <h6>Libelopia is an animation studio founded in 2020 by Laura Pop,</h6>
+        <h6>specialising in art direction, 2D animation, and animation workshops.</h6>
+        <br>
+        <h6>We produce short films for NGOs, film festivals, musicians, we develop our own animated shorts,</h6>
+        <h6>and we provide mentorship for children and adults.</h6>
+        <br>
+        <br>
+        <h6>We like to capture the complexity in simple things and the multitude of perspectives that surround us.</h4>
 
       </div>
 
@@ -42,7 +50,7 @@
       <div style="height:10vh"></div>
 
       <!-- team -->
-      <div style="height: 10vh;" class="display-3 text-center">
+      <div style="height: 20vh;" class="display-3 text-center">
           <img src="img/titles/team.png" alt="Our team" class="h-100 img-fluid mx-auto d-block">
       </div>
 
@@ -52,15 +60,11 @@
 
       <div class="row my-2 px-0">
         <div class="col-12 h-100 text-center">
-          <img style="max-width: 35vh; max-height: 35vh;"src="./img/Adele.png" alt="" class="h-100 img-fluid img-border">
-          <div class="row mx-auto">
-            <div class="col-12">
-              <h2>Laura Pop</h2>
-              <h4>founder, director, animator</h4>
-            </div>
+          <img style="max-width: 35vh; max-height: 35vh;"src="img/LauraP.png" alt="" class="h-100 img-fluid img-border">
+          <div class="pt-2 row mx-auto">
             
             <!-- web -->
-            <div class="row w-25 mx-auto px-0 d-none d-sm-flex">
+            <div style="width:10%" class="row mx-auto px-0 d-none d-md-flex">
               <div class="col-3 mx-auto px-0">
                 <a href="https://vimeo.com/laurapop">
                   <img class="img-fluid" src="img/icons/vimeo.png">
@@ -74,6 +78,25 @@
               <div class="col-3 mx-auto px-0">
                 <a href="https://www.linkedin.com/in/laura-pop-725054182/">
                 <img class="img-fluid" src="img/icons/linkedin.png">
+                </a>
+              </div>
+            </div>
+
+            <!-- tablet? -->
+            <div style="width:20%" class="row mx-auto px-0 d-none d-sm-flex d-md-none">
+              <div class="col-4 px-0">
+                <a href="https://vimeo.com/laurapop">
+                  <img class="img-fluid" src="img/icons/vimeo.png">
+                </a>
+              </div>
+              <div class="col-4 px-0">
+                <a href="https://www.instagram.com/laura.pop.i/">
+                  <img class="img-fluid" src="img/icons/instagram.png">
+                </a>
+              </div>
+              <div class="col-4 px-0">
+                <a href="https://www.linkedin.com/in/laura-pop-725054182/">
+                  <img class="img-fluid" src="img/icons/linkedin.png">
                 </a>
               </div>
             </div>
@@ -96,6 +119,11 @@
                 </a>
               </div>
             </div>
+
+            <div class="col-12">
+              <h2>Laura Pop</h2>
+              <h4>founder, director, animator</h4>
+            </div>
           </div>
         </div>
       </div>
@@ -106,15 +134,11 @@
       <div class="row px-0">
         
         <div class="col-12 my-3 col-md-4 h-100 text-center">
-          <img style="max-width: 35vh; max-height: 35vh;"src="./img/Adele.png" alt="" class="h-100 img-fluid img-border">
-          <div class="row mx-auto">
-            <div class="col-12">
-              <h2>Ann Kuznetzova</h2>
-              <h4>sound designer & musician</h4>
-            </div>
+          <img style="max-width: 35vh; max-height: 35vh;"src="img/AnnK.png" alt="" class="h-100 img-fluid img-border">
+          <div class="pt-2 row mx-auto">
 
             <!-- web -->
-            <div class="row w-50 mx-auto px-0 d-none d-md-flex">
+            <div style="width:20%" class="mx-auto px-0 d-none d-md-flex">
               <div class="col-4 mx-auto px-0">
                 <a href="https://taplink.cc/etsinancy">
                   <img class="img-fluid" src="img/icons/taplink.png">
@@ -123,7 +147,7 @@
             </div>
 
             <!-- tablet? -->
-            <div class="row w-25 mx-auto px-0 d-none d-sm-flex d-md-none">
+            <div style="width:20%" class="row mx-auto px-0 d-none d-sm-flex d-md-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://taplink.cc/etsinancy">
                 <img class="img-fluid" src="img/icons/taplink.png">
@@ -132,25 +156,26 @@
             </div>
 
             <!-- phone -->
-            <div class="row w-50 mx-auto px-0 d-flex d-sm-none">
+            <div style="width:40%" class="row mx-auto px-0 d-flex d-sm-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://taplink.cc/etsinancy">
                 <img class="img-fluid" src="img/icons/taplink.png">
                 </a>
               </div>
             </div>
+            <div class="col-12">
+              <h2>Ann Kuznetzova</h2>
+              <h4>sound designer & musician</h4>
+            </div>
           </div>
         </div>
 
         <div class="col-12 my-3 col-md-4 h-100 text-center">
-          <img style="max-width: 35vh; max-height: 35vh;"src="./img/DianaR.png" alt="" class="h-100 img-fluid img-border">
-          <div class="row mx-auto">
-            <div class="col-12">
-              <h2>Diana Rădulescu</h2>
-              <h4>editor</h4>
-            </div>
+          <img style="max-width: 35vh; max-height: 35vh;"src="img/DianaR.png" alt="" class="h-100 img-fluid img-border">
+          <div class="pt-2 row mx-auto">
+
             <!-- web -->
-            <div class="row w-50 mx-auto px-0 d-none d-md-flex">
+            <div style="width:20%" class="row mx-auto px-0 d-none d-md-flex">
               <div class="col-4 mx-auto px-0">
                 <a href="https://vimeo.com/dianaedit">
                   <img class="img-fluid" src="img/icons/vimeo.png">
@@ -169,7 +194,7 @@
             </div>
 
             <!-- tablet? -->
-            <div class="row w-25 mx-auto px-0 d-none d-sm-flex d-md-none">
+            <div style="width:20%" class="row mx-auto px-0 d-none d-sm-flex d-md-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://vimeo.com/dianaedit">
                   <img class="img-fluid" src="img/icons/vimeo.png">
@@ -188,7 +213,7 @@
             </div>
 
             <!-- phone -->
-            <div class="row w-50 mx-auto px-0 d-flex d-sm-none">
+            <div style="width:40%" class="row mx-auto px-0 d-flex d-sm-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://vimeo.com/dianaedit">
                   <img class="img-fluid" src="img/icons/vimeo.png">
@@ -205,19 +230,20 @@
                 </a>
               </div> -->
             </div>
+
+            <div class="col-12">
+              <h2>Diana Rădulescu</h2>
+              <h4>editor</h4>
+            </div>
           </div>
         </div>
 
         <div class="col-12 my-3 col-md-4 h-100 text-center">
-          <img style="max-width: 35vh; max-height: 35vh;"src="./img/Adele.png" alt="" class="h-100 img-fluid img-border">
-          <div class="row mx-auto">
-            <div class="col-12">
-              <h2>Adèle Coulloudon</h2>
-              <h4>compositing artist</h4>
-            </div>
+          <img style="max-width: 35vh; max-height: 35vh;"src="img/AdeleC.png" alt="" class="h-100 img-fluid img-border">
+          <div class="pt-2 row mx-auto">
             
             <!-- web -->
-            <div class="row w-50 mx-auto px-0 d-none d-md-flex">
+            <div style="width:20%" class="row mx-auto px-0 d-none d-md-flex">
               <div class="col-4 mx-auto px-0">
                 <a href="https://www.instagram.com/coulloudon/">
                   <img class="img-fluid" src="img/icons/instagram.png">
@@ -226,7 +252,7 @@
             </div>
 
             <!-- tablet? -->
-            <div class="row w-25 mx-auto px-0 d-none d-sm-flex d-md-none">
+            <div style="width:20%" class="row mx-auto px-0 d-none d-sm-flex d-md-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://www.instagram.com/coulloudon/">
                 <img class="img-fluid" src="img/icons/instagram.png">
@@ -235,12 +261,17 @@
             </div>
 
             <!-- phone -->
-            <div class="row w-50 mx-auto px-0 d-flex d-sm-none">
+            <div style="width:40%" class="row mx-auto px-0 d-flex d-sm-none">
               <div class="col-4 mx-auto px-0">
                 <a href="https://www.instagram.com/coulloudon/">
                   <img class="img-fluid" src="img/icons/instagram.png">
                 </a>
               </div>
+            </div>
+
+            <div class="col-12">
+              <h2>Adèle Coulloudon</h2>
+              <h4>compositing artist</h4>
             </div>
 
           </div>
@@ -258,7 +289,7 @@
         <h4>OUR SOCIAL NETWORK</h4>
 
         <!-- web -->
-        <div class="row w-25 mx-auto px-0 d-none d-md-flex">
+        <div style="width:15%" class="row mx-auto px-0 d-none d-md-flex">
           <div class="col-3 mx-auto px-0">
             <a href="#">
               <img class="img-fluid" src="img/icons/facebook.png">
