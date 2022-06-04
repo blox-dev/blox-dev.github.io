@@ -18,42 +18,16 @@
         opacity: 0; /* Fix to make div clickable in IE */
         filter: alpha(opacity=1); /* Fix to make div clickable in IE */
       }
-
-      .main-button {
-        transition: transform .4s;
-        
-      }
-      .main-button:hover {
-        transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-      }
-
-      .anim {
-        animation: MoveUpDown 3s linear infinite;
-      }
-
-      .anim-2 {
-        animation: MoveUpDown 2.33s linear infinite;
-      }
-
-      @keyframes MoveUpDown {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
-    <link rel="preload" as="image" href="img/about_2.gif">
-    <link rel="preload" as="image" href="img/contact_2.gif">
-    <link rel="preload" as="image" href="img/films_2.gif">
-    <link rel="preload" as="image" href="img/projects_2.gif">
-    <link rel="preload" as="image" href="img/workshops_2.gif">
+    <link rel="preload" as="image" href="anim/about_2.gif">
+    <link rel="preload" as="image" href="anim/contact_2.gif">
+    <link rel="preload" as="image" href="anim/films_2.gif">
+    <link rel="preload" as="image" href="anim/projects_2.gif">
+    <link rel="preload" as="image" href="anim/workshops_2.gif">
 
     <title>Libelopia</title>
   </head>
@@ -67,87 +41,81 @@
 
         <!-- about web width:364px; height:326px;-->
         <div class="position-absolute d-none d-md-block" onmouseover="over(this.childNodes[1], 'about', 300)" onmouseleave="leave(this.childNodes[1], 'about')" style="width:15.55%; height:30.8%; left:20%; top:5%;">
-          <img class="h-100 w-100" src="img/about_1s.gif">
+          <img class="h-100 w-100" src="anim/about_1s.gif">
           <a class="div-link" href="about.html"></a>
         </div>
 
         <!-- about phone-->
         <div class="position-absolute d-block d-md-none" onmouseover="over(this.childNodes[1], 'about', 300)" onmouseleave="leave(this.childNodes[1], 'about')" style="width:27.55%; height:31.8%; left:5%; top:5%;">
-          <img class="h-100 w-100" src="img/about_1s.gif">
+          <img class="h-100 w-100" src="anim/about_1s.gif">
           <a class="div-link" href="about.html"></a>
         </div>
 
         <!-- contact web width:455px; height:398px;-->
         <div class="position-absolute d-none d-md-block" onmouseover="over(this.childNodes[1], 'contact', 300)" onmouseleave="leave(this.childNodes[1], 'contact')" style="width:16.7%; height:35.7%;  left:60%;top: 55%;">
-          <img class="h-100 w-100" src="img/contact_1s.gif">
+          <img class="h-100 w-100" src="anim/contact_1s.gif">
           <a class="div-link" href="contact.html"></a>
         </div>
 
         <!-- contact phone -->
         <div class="position-absolute d-block d-md-none" onmouseover="over(this.childNodes[1], 'contact', 300)" onmouseleave="leave(this.childNodes[1], 'contact')" style="width:28.7%; height:35.7%;  left:71%;top: 59%;">
-          <img class="h-100 w-100" src="img/contact_1s.gif">
+          <img class="h-100 w-100" src="anim/contact_1s.gif">
           <a class="div-link" href="contact.html"></a>
         </div>
 
         <!-- films web width:434px; height:434px;-->
         <div class="position-absolute d-none d-md-block" onmouseover="over(this.childNodes[1], 'films', 300)" onmouseleave="leave(this.childNodes[1], 'films')" style="width:14.9%; height:40.4%; top:25%; left:30%;">
-          <img class="h-100 w-100" src="img/films_1s.gif">
+          <img class="h-100 w-100" src="anim/films_1s.gif">
           <a class="div-link" href="films.html"></a>
         </div>
 
         <!-- films phone -->
         <div class="position-absolute d-block d-md-none" onmouseover="over(this.childNodes[1], 'films', 300)" onmouseleave="leave(this.childNodes[1], 'films')" style="width:33.9%; height:44.4%; top:27%; left:11%;">
-          <img class="h-100 w-100" src="img/films_1s.gif">
+          <img class="h-100 w-100" src="anim/films_1s.gif">
           <a class="div-link" href="films.html"></a>
         </div>
 
         <!-- projects web width:571px; height:597px;-->
         <div class="position-absolute d-none d-md-block" onmouseover="over(this.childNodes[1], 'projects', 300)" onmouseleave="leave(this.childNodes[1], 'projects')" style="width:20.8%; height:55.3%; left:40%; top:0%;">
-          <img class="h-100 w-100" src="img/projects_1s.gif">
+          <img class="h-100 w-100" src="anim/projects_1s.gif">
           <a class="div-link" href="projects.html"></a>
         </div>
 
         <!-- projects phone -->
         <div class="position-absolute d-block d-md-none" onmouseover="over(this.childNodes[1], 'projects', 300)" onmouseleave="leave(this.childNodes[1], 'projects')" style="width:45.8%; height:58.3%; left:31%; top:0%;">
-          <img class="h-100 w-100" src="img/projects_1s.gif">
+          <img class="h-100 w-100" src="anim/projects_1s.gif">
           <a class="div-link" href="projects.html"></a>
         </div>
 
         <!-- workshops web width:523px; height:496px;-->
         <div class="position-absolute d-none d-md-block" onmouseover="over(this.childNodes[1], 'workshops', 300)" onmouseleave="leave(this.childNodes[1], 'workshops')" style="width:22.89%; height:55.6%; left:39%; top:43%;">
-          <img class="h-100 w-100" src="img/workshops_1s.gif">
+          <img class="h-100 w-100" src="anim/workshops_1s.gif">
           <a class="div-link" href="workshops.html"></a>
         </div>
 
         <!-- workshops phone -->
         <div class="position-absolute d-block d-md-none" onmouseover="over(this.childNodes[1], 'workshops', 300)" onmouseleave="leave(this.childNodes[1], 'workshops')" style="width:43.89%; height:56.6%; left:33%; top:42%;">
-          <img class="h-100 w-100" src="img/workshops_1s.gif">
+          <img class="h-100 w-100" src="anim/workshops_1s.gif">
           <a class="div-link" href="workshops.html"></a>
         </div>
       </div>
     </div>
     <script>
-      // let xd = document.createElement("img");
-      // xd.src = "img/projects_1s.gif";
-      // xd.src = "img/projects_2_loop.gif";
-      // xd.src = "img/projects_3.gif";
-      // xd.src = "";
-
       var changing = {};
 
       function over(img, trunc, time) {
           changing[trunc] = true;
 
-          img.src="img/"+trunc +"_2.gif";
+          img.src="anim/"+trunc +"_2.gif";
           
           setTimeout(()=>{
             if(changing[trunc])
-              img.src="img/"+trunc+"_3.gif";
+              img.src="anim/"+trunc+"_3.gif";
             }, time);
       }
       function leave(img,trunc){
         changing[trunc] = false;
-        img.src="img/"+trunc+"_1s.gif";
+        img.src="anim/"+trunc+"_1s.gif";
     }
     </script>
   </body>

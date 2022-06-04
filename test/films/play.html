@@ -48,39 +48,42 @@
       </div>
     </div>
     <script>
-      console.log(window.location.search);
+      // console.log(window.location.search);
       
+      var film = '';
       var parts = window.location.search.substr(1).split("&");
       
-      var $_GET = {};
       for (var i = 0; i < parts.length; i++) {
           var temp = parts[i].split("=");
-          $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+          if(decodeURIComponent(temp[0]) === 'film') {
+            film = decodeURIComponent(temp[1]);
+            break;
+          }
       }
 
-      switch ($_GET['film']) {
+      switch (film) {
         case 'atriums_ventricles': {
-          document.title = 'Atriums, ventricles - by Laura Pop';
-          document.getElementById('main-source').src="./Miroir_Teaser_LauraPop.mp4";
-          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          document.title = 'Atriums, ventricles - Trailer by Laura Pop';
+          document.getElementById('main-source').src="./Atriums_ventricles_trailer_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./thumbnail_Atriums_ventricles_LauraPop.png";
           break;
         }
         case 'miroir': {
-          document.title = 'Miroir - by Laura Pop';
+          document.title = 'Mirror - Teaser by Laura Pop';
           document.getElementById('main-source').src="./Miroir_Teaser_LauraPop.mp4";
           document.getElementById('main-vid').poster ="./../video-placeholder.png";
           break;
         }
         case 'monster': {
           document.title = 'Monster - by Laura Pop';
-          document.getElementById('main-source').src="./Miroir_Teaser_LauraPop.mp4";
-          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          document.getElementById('main-source').src="./Monster_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./thumbnail_Monster_LauraPop.jpg";
           break;
         }
         case 'moarte': {
-          document.title = 'Moarte - by Laura Pop';
-          document.getElementById('main-source').src="./Moarte_LauraPop.mp4";
-          document.getElementById('main-vid').poster ="./../video-placeholder.png";
+          document.title = 'Death - by Laura Pop';
+          document.getElementById('main-source').src="./Death_LauraPop.mp4";
+          document.getElementById('main-vid').poster ="./thumbnail_Death_LauraPop.png";
           break;
         }
         default: window.location.href = './../films.html';

@@ -14,7 +14,6 @@
         position: relative;
         width: 100%;
         height: 100%;
-        /* border: #efefef 1px solid; */
       }
 
       .img_description {
@@ -35,6 +34,13 @@
         visibility: visible;
         opacity: 1;
       }
+
+      p {
+        font-size: 20px;
+        font-size: 3vmin;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
     </style>
 
     <title>Films</title>
@@ -44,20 +50,68 @@
       <div style="height: 20vh;" class="display-1 text-center">
         <img src="img/titles/films.png" alt="FILMS" class="h-100 img-fluid mx-auto d-block">
       </div>
+
+      <!-- empty space -->
+      <div style="height:10vh"></div>
+
       <div class="row justify-content-center">
-        <div class="col-12 col-lg-6 py-2 text-center">
+
+        <!-- atriums, ventricles -->
+        <div class="col-12 col-lg-10 py-5 text-center">
           <div class="img_wrap">
-            <video style="height:100%;width:100%;" poster="video-placeholder.png" preload="none">
+            <video style="width:100%;height:100%;" poster="films/thumbnail_Atriums_ventricles_LauraPop.png" preload="none">
             </video>
-            <p class="img_description my-auto fs-2" onclick="go_to_video('monster');">Monster</p>
+            <div class="img_description my-auto" onclick="go_to_video('atriums_ventricles');">
+              <p><b>Atriums, ventricles</b></p>
+              <p>An X-Ray of a heart during the March 2020 quarantine.</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              
+              <p>Writer, director, animator: Laura Pop</p>
+              <p>Producer: Andrei Tănăsescu</p>
+              <p>Sound designer: Ann Kuznetzova</p>
+              
+              <div class="d-none d-md-inline"><br></div>
+
+              <p>Part of Journey around the home in 60 days</p>
+              <p>Commissioned by the 2020 European Film Festival with the financial support of the Romanian Cultural Institute and the European Commission</p>
+              
+              <div class="d-none d-md-inline"><br></div>
+
+              <p><b>SELECTIONS</b></p>
+              <p>Ji.hlava, European Film Festival, Animest</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              
+              <p>&#169; Laura Pop 2020</p>
+            </div>
           </div>
         </div>
 
-        <div class="col-12 col-lg-6 py-2 text-center">
+        <!-- moarte -->
+        <div class="col-12 col-lg-10 py-5 text-center">
           <div class="img_wrap">
-            <video style="width:100%;height:100%;" poster="video-placeholder.png" preload="none">
+            <video style="width:100%;height:100%;" poster="films/thumbnail_Death_LauraPop.png" preload="none">
             </video>
-            <p class="img_description my-auto fs-2" onclick="go_to_video('miroir');">Miroir</p>
+            <div class="img_description my-auto" onclick="go_to_video('moarte');">
+              <p><b>Death</b></p>
+              <p>How do we look at death and how does death look at us?</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Writer, director, animator: Laura Pop</p>
+              <p>Sound designer: Mihai Monescu</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>Developed during the Acasă la Hundorf residency</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p><b>SELECTIONS</b></p>
+              <p>Animest, Les Films de Cannes a Bucarest, Dracula Film Festival, Anonimul</p>
+
+              <div class="d-none d-md-inline"><br></div>
+              <p>&#169; Laura Pop 2020</p>
+
+            </div>
           </div>
         </div>
         
@@ -65,34 +119,67 @@
 
       <div class="row justify-content-center">
        
-        <div class="col-12 col-lg-6 py-2 text-center">
+        <!-- miroir -->
+        <div class="col-12 col-lg-10 py-5 text-center">
           <div class="img_wrap">
             <video style="width:100%;height:100%;" poster="video-placeholder.png" preload="none">
             </video>
-            <p class="img_description my-auto fs-2" onclick="go_to_video('moarte');">Moarte</p>
+            <div class="img_description my-auto" onclick="go_to_video('miroir');">
+              <p><b>Miroir</b></p>
+              <p>A story about that voice in our head that never stops disagreeing with us.</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+              
+              <p>Writer, director, animator: Laura Pop</p>
+              <p>Producer: Jean-Luc Slock</p>
+              <p>Musician and sound designer: Gauthier Simon</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+              
+              <p><b>SELECTIONS</b></p>
+              <p>Filem'On International Film Festival for Young Audiences, Animaevka, Festival du Court en Armagnac, Canlandıranlar Film Festival, Sedicicorto Forli International Film Festival, Flipbook Film Festival, Chaniartoon - International Comic & Animation Festival, Open Air FilmFest Weiterstadt, Animare International Animated Short Film Festival, Le Court en dit Long, Moldova Film Festival</p>
+              
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p>Selected as official festival trailer and festival poster at SESIFF</p>
+
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p>&#169; Camera-etc 2020</p>
+
+            </div>
           </div>
         </div>
 
-        <!-- <div class="col-12 col-lg-6 py-2 text-center">
+        <!-- monster -->
+        <div class="col-12 col-lg-10 py-5 text-center">
           <div class="img_wrap">
-            <video style="width:100%;height:100%;" poster="video-placeholder.png" preload="none" onclick="this.play(); this.controls = true;">
-              <source type="video/webm" src="films/Atriums,ventricles_LauraPop.mov">
+            <video style="height:100%;width:100%;" poster="films/thumbnail_Monster_LauraPop.jpg" preload="none">
             </video>
-            <p class="img_description my-auto fs-2" onclick="play_video(this);">Atriums, ventricles</p>
-          </div>
-        </div> -->
+            <div class="img_description my-auto" onclick="go_to_video('monster');">
+              <p><b>Monster</b></p>
+              <p>A story about the search for inner peace and about growing up.</p>
 
-        <div class="col-12 col-lg-6 py-2 text-center">
-          <div class="img_wrap">
-            <video style="width:100%;height:100%;" poster="video-placeholder.png" preload="none">
-            </video>
-            <p class="img_description my-auto fs-2" onclick="go_to_video('atriums_ventricles');">Atriums, ventricles</p>
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p>Writer, director, animator: Laura Pop</p>
+              <p>Composer & musician: Theodoros Popa</p>
+              <p>Sound designer: Grig Burloiu</p>
+
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p><b>AWARDS</b></p>
+              <p>Grand Prix & Special Mention (TIFF, local competition), Best Romanian Short (Animest), Jury's Special Prize (DaKINO), Best Animation Film (Film de Piatra), ‘Ion Truică' Award for Romanian Animation Film (CineMAiubit), Special Mention for Animation (Early Bird International Student Film Festival), Best Animation Film (Movie Screen Pro), Student Jury's Prize (ClassFest), Audience Award (Romanian Days in Bremen, children's competition), nomination at the UCIN Awards for Animation Film Award</p>
+
+              <div class="d-none d-xl-inline"><br></div>
+
+              <p>&#169; UNATC 2018</p>
+
+            </div>
           </div>
         </div>
 
       </div>
-
-       <!-- <iframe src="https://player.vimeo.com/video/347119375" width="640" height="360" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen></iframe> -->
     </div>
     <script>
       // function play_video(img) {
