@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Coding Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --text-color: #111827;
+            --card-bg: #ffffff;
+            --card-text: #374151;
+            --link-bg: #2563eb;
+            --link-hover: #1d4ed8;
+            --pinned-border: #3b82f6;
+            --pinned-bg: #eff6ff;
+        }
+
+        body.dark-mode {
+            --bg-color: #1f2937;
+            --text-color: #f3f4f6;
+            --card-bg: #374151;
+            --card-text: #d1d5db;
+            --link-bg: #3b82f6;
+            --link-hover: #2563eb;
+            --pinned-border: #60a5fa;
+            --pinned-bg: #1e40af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            padding: 2rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .dark-toggle {
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        .dark-toggle button {
+            background: var(--link-bg);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dark-toggle button:hover {
+            background: var(--link-hover);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #d1d5db;
+            padding-bottom: 1rem;
+        }
+
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--card-text);
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background 0.3s, color 0.3s;
+        }
+
+        .project.pinned {
+            border: 3px solid var(--pinned-border);
+            background: var(--pinned-bg);
+        }
+
+        .project h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project .details {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            color: var(--card-text);
+        }
+
+        .project .links a {
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            background-color: var(--link-bg);
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .project .links a:hover {
+            background-color: var(--link-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="dark-toggle">
+            <button id="darkModeToggle">Toggle Dark Mode</button>
+        </div>
+        <h1>My Coding Projects</h1>
+
+        <div class="section">
+            <h2>Personal Projects</h2>
+            <div class="project-list">
+                <div class="project pinned">
+                    <h3>Eurovault</h3>
+                    <div class="details">Language: Javascript</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/Eurovault" target="_blank">🔗 GitHub</a>
+                        <a href="demos/eurovault.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>Interactive browser application provide meaningful statistics and data visualisation to people considering to relocate in the EU.</p>
+                </div>
+                <div class="project pinned">
+                    <h3>FlowDocumentation + MaintainerLookup</h3>
+                    <div class="details">Language: TypeScript/Python 3</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/flow-documentation" target="_blank">🔗 GitHub</a>
+                        <a href="demos/flow_documentation_demo.mp4" target="_blank">▶️ FlowDoc Demo</a>
+                        <a href="demos/maintainer_lookup_demo.mp4" target="_blank">▶️ ML Demo</a>
+                    </div>
+                    <p>VSCode extension that helps developers more easily find code maintainers in their company / better understand the microservice-based code architecture.</p>
+                </div>
+                <div class="project pinned">
+                    <h3>SecureChat</h3>
+                    <div class="details">Language: Javascript</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/SecureChat" target="_blank">🔗 GitHub</a>
+                        <a href="demos/securechat.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>Secure messaging web application with end-to-end encryption, socket-based communication, Oauth login support, and Docker-based deployment.</p>
+                </div>
+                <div class="project pinned">
+                    <h3>Libelopia</h3>
+                    <div class="details">Language: HTML/CSS/JS</div>
+                    <div class="links">
+                        <a href="https://github.com/libelopia/libelopia.github.io" target="_blank">🔗 GitHub</a>
+                        <a href="https://libelopia.com/" target="_blank">☁️ Site</a>
+                    </div>
+                    <p>Interactive website for a visual arts studio.</p>
+                </div>
+                
+                <div class="project pinned">
+                    <h3>Scrabble</h3>
+                    <div class="details">Language: Python 3</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/Python_Scrabble" target="_blank">🔗 GitHub</a>
+                        <a href="demos/python_scrabble.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>Python implementation of Scrabble using the Tkinter GUI library.</p>
+                </div>
+                <div class="project pinned">
+                    <h3>Solitaire</h3>
+                    <div class="details">Language: C++ (SDL2)</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/Solitaire" target="_blank">🔗 GitHub</a>
+                        <a href="demos/cpp_solitaire.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>C++ implementation of the lesser-known Solitaire board game.</p>
+                </div>
+                <div class="project">
+                    <h3>Android Weather Alarm</h3>
+                    <div class="details">Language: Java/Android</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/WeatherAlarm" target="_blank">🔗 GitHub</a>
+                    </div>
+                    <p>Android application to set alarms that display current weather information on trigger.</p>
+                </div>
+                <div class="project">
+                    <h3>Binary Decision Diagram Reduction</h3>
+                    <div class="details">Language: Haskell</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/BDDReduction" target="_blank">🔗 GitHub</a>
+                        <a href="demos/binary_decision_diagram_haskell.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>Interactive BDD reduction tool for logical formulas.</p>
+                </div>
+                <div class="project">
+                    <h3>Recipe Box</h3>
+                    <div class="details">Language: Python (Pytorch/Transformers)</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/recipe-box-transformers" target="_blank">🔗 GitHub</a>
+                    </div>
+                    <p>GPT-2 model trained on popular recipes to generate new ones.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Small Group Projects</h2>
+            <div class="project-list">
+                <div class="project pinned">
+                    <h3>RealQuest</h3>
+                    <div class="details">Language: PHP/HTML/CSS/JavaScript</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/RealQuest" target="_blank">🔗 GitHub</a>
+                        <a href="demos/realquest.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>Neighborhood-based multiplayer arcade game using MapBox and APIs.</p>
+                </div>
+                <div class="project">
+                    <h3>Breakout Neural Network</h3>
+                    <div class="details">Language: Python (TensorFlow)</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/Breakout-DQN" target="_blank">🔗 GitHub</a>
+                    </div>
+                    <p>Deep Q-Learning implementation for the Atari game Breakout.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Large Group Projects</h2>
+            <div class="project-list">
+                <div class="project pinned">
+                    <h3>CarcassonneAR</h3>
+                    <div class="details">Language: C#/Unity</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/CarcassonneAR" target="_blank">🔗 GitHub</a>
+                        <a href="demos/carcasonne_ar.mp4" target="_blank">▶️ Demo</a>
+                    </div>
+                    <p>AR implementation of the Carcassonne board game using Unity and Vuforia.</p>
+                </div>
+                <div class="project">
+                    <h3>Humanity Against Cards</h3>
+                    <div class="details">Language: PHP/HTML/CSS/JavaScript</div>
+                    <div class="links">
+                        <a href="https://github.com/blox-dev/HumanityAgainstCards" target="_blank">🔗 GitHub</a>
+                    </div>
+                    <p>Cards Against Humanity clone where players face AI opponents.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Initialize theme based on saved preference
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        // Toggle dark mode on button click
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+
+</html>
