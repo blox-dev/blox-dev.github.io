@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <style>
+        html,
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #controls {
+            position: absolute;
+            z-index: 90;
+            border: 1px solid black;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #controls input,
+        #controls button {
+            margin: 5px;
+        }
+
+        #controls-header {
+            z-index: 100;
+            padding: 10px;
+            cursor: move;
+            background-color: #2196F3;
+            color: #fff;
+        }
+
+        canvas {
+            z-index: 80;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Helper classes */
+        .not-selectable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="controls">
+        <div id="controls-header"><span class="not-selectable">Controls - Drag to move</span></div>
+        <!-- <h3 class="not-selectable">Game of Life Controls</h3> -->
+        <label for="birthLimit" class="not-selectable">Birth Limit:</label>
+        <input type="number" id="birthLimit" value="3" min="1" max="8" onchange="updateConditions()" />
+        <br>
+        <label for="survivalMin" class="not-selectable">Survival Min:</label>
+        <input type="number" id="survivalMin" value="2" min="1" max="8" onchange="updateConditions()" />
+        <br>
+        <label for="survivalMax" class="not-selectable">Survival Max:</label>
+        <input type="number" id="survivalMax" value="3" min="1" max="8" onchange="updateConditions()" />
+        <br>
+        <button onclick="resetConditions()">Reset Conditions</button>
+        <button onclick="clearGrid()">Clear Grid</button>
+        <br><br>
+
+        <div class="slider-container">
+            <label for="speedSlider" class="not-selectable">Speed (Updates per second):</label>
+            <input type="range" id="speedSlider" min="0" max="10" value="0" oninput="updateConditions()" />
+            <span class="not-selectable"><span id="speedValue">0</span> Updates/second</span>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Make control screen draggable
+        function getOffset(el, ev) {
+            const rect = el.getBoundingClientRect();
+            return {
+                left: ev.clientX - (rect.left + window.scrollX),
+                top: ev.clientY - (rect.top + window.scrollY)
+            };
+        }
+        let diff = { left: 0, top: 0 };
+
+        window.onload = addListeners;
+
+        function addListeners() {
+            document.getElementById('controls-header').addEventListener('mousedown', mouseDown, false);
+            window.addEventListener('mouseup', mouseUp, false);
+            window.addEventListener('resize', (ev) => { resizeCanvas(); drawGrid(); }, false);
+        }
+
+        function mouseUp() {
+            window.removeEventListener('mousemove', divMove, true);
+        }
+
+        function mouseDown(e) {
+            const div = document.getElementById('controls');
+            diff = getOffset(div, e);
+
+            window.addEventListener('mousemove', divMove, true);
+        }
+
+        function divMove(e) {
+            const div = document.getElementById('controls');
+            // div.style.position = 'absolute';
+            div.style.top = (e.clientY - diff.top) + 'px';
+            div.style.left = (e.clientX - diff.left) + 'px';
+        }
+
+        // Make canvas fullscreen
+        const canvas = document.getElementById('gameCanvas');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+
+        const ctx = canvas.getContext('2d');
+
+        // Grid size and cell size
+        const cols = 15;
+        const rows = 10;
+        const cellSize = 50;
+
+        let grid = new Array(cols);
+
+        for (let i = 0; i < cols; i++) {
+            grid[i] = new Array(rows).fill(0); // 0 for dead, 1 for alive
+        }
+
+        // Customizable Life and Death Conditions
+        let birthLimit = 3; // Number of neighbors to become alive
+        let survivalLimit = [2, 3]; // Number of neighbors to stay alive
+
+        // Speed (updates per second)
+        let updateSpeed = 0; // Default: 0
+
+        // Mouse interaction for creating cells
+        let isMouseDown = false;
+        let drawMode = null;
+        let gameInterval;
+
+        // Get the number of neighbors for a cell (including wraparound behavior)
+        function getNeighborCount(x, y) {
+            let count = 0;
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i === 0 && j === 0) continue;
+                    let nx = (x + i + cols) % cols;
+                    let ny = (y + j + rows) % rows;
+                    count += grid[nx][ny];
+                }
+            }
+            return count;
+        }
+
+        // Update the grid based on the current state and rules
+        function updateBoard() {
+            let newGrid = new Array(cols);
+            for (let i = 0; i < cols; i++) {
+                newGrid[i] = new Array(rows).fill(0);
+            }
+
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    const neighbors = getNeighborCount(x, y);
+                    if (grid[x][y] === 1) {
+                        if (neighbors >= survivalLimit[0] && neighbors <= survivalLimit[1]) {
+                            newGrid[x][y] = 1;
+                        }
+                    } else {
+                        if (neighbors === birthLimit) {
+                            newGrid[x][y] = 1;
+                        }
+                    }
+                }
+            }
+            grid = newGrid; // Update the grid for the next generation
+        }
+
+        // Draw the grid on the canvas
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    if (grid[x][y] === 1) {
+                        ctx.fillStyle = 'black';
+                    } else {
+                        ctx.fillStyle = 'white';
+                    }
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+
+        // Start the game loop with adjustable speed
+        function startGame() {
+            if (updateSpeed !== 0) {
+                gameInterval = setInterval(() => {
+                    updateBoard();
+                    drawGrid();
+                }, 1000 / updateSpeed); // Update at intervals based on speed (in ms)
+            }
+        }
+
+        // Update the conditions based on user input
+        function updateConditions() {
+            birthLimit = parseInt(document.getElementById('birthLimit').value);
+            survivalLimit = [
+                parseInt(document.getElementById('survivalMin').value),
+                parseInt(document.getElementById('survivalMax').value)
+            ];
+
+            updateSpeed = parseInt(document.getElementById('speedSlider').value);
+            document.getElementById('speedValue').textContent = updateSpeed;
+
+            // Update game speed
+            clearInterval(gameInterval);
+            startGame();
+        }
+
+        function clearGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    grid[x][y] = 0;
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+
+        function resetConditions() {
+
+            document.getElementById('birthLimit').value = 3;
+            document.getElementById('survivalMin').value = 2;
+            document.getElementById('survivalMax').value = 3;
+
+            updateSpeed = 0; // Default: 0
+            document.getElementById('speedSlider').value = 0;
+            document.getElementById('speedValue').textContent = 0;
+
+            // Update game speed
+            clearInterval(gameInterval);
+            startGame();
+        }
+
+        // Handle mouse events to create or remove cells
+        canvas.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            const x = Math.floor(event.offsetX / cellSize);
+            const y = Math.floor(event.offsetY / cellSize);
+            if (x < 0 || x >= cols || y < 0 || y >= rows) {
+                return;
+            }
+            drawMode = grid[x][y] === 0 ? 1 : 0;
+            createCell(e);
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isMouseDown = false;
+            drawMode = null;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                createCell(e);
+            }
+        });
+
+        // Create or toggle cell based on mouse position
+        function createCell(event) {
+            const x = Math.floor(event.offsetX / cellSize);
+            const y = Math.floor(event.offsetY / cellSize);
+            if (x < 0 || x >= cols || y < 0 || y >= rows) {
+                return;
+            }
+            grid[x][y] = drawMode;
+            drawGrid(); // Redraw grid after change
+        }
+
+        // Update speed slider values
+        const speedSlider = document.getElementById('speedSlider').value = 0;
+        const speedValue = document.getElementById('speedValue').textContent = 0;
+
+        // Initial setup
+        drawGrid();
+        startGame();
+    </script>
+
+</body>
+
+</html>
