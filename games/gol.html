@@ -26,7 +26,6 @@
             position: absolute;
             z-index: 90;
             border: 1px solid black;
-            position: absolute;
             top: 10px;
             left: 10px;
             white-space: nowrap;
@@ -60,6 +59,31 @@
             flex-direction: column;
         }
 
+        #controls.collapsed {
+            height: 40px;
+            overflow: hidden;
+            padding-bottom: 0;
+        }
+
+        #toggleControlsBtn {
+            background: #fff;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .header-btn {
+            margin-left: 5px;
+            padding: 2px 10px;
+            font-size: 14px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background: #fff;
+            cursor: pointer;
+        }
+
         /* Helper classes */
         .not-selectable {
             -webkit-touch-callout: none;
@@ -69,13 +93,80 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            #controls {
+                position: fixed;
+                bottom: 0;
+                top: auto;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 0;
+                padding: 1px;
+                overflow-y: auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                z-index: 99;
+            }
+
+            #controls label,
+            #controls input,
+            #controls button,
+            #controls .slider-container {
+                flex: 1 1 45%;
+                margin: 5px 0;
+            }
+
+            #controls-header {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 10px;
+            }
+
+            #controls-header button {
+                flex-grow: 1;
+                margin: 0 3px;
+                padding: 5px 0;
+                font-size: 16px;
+                max-width: 33vw;
+                width: 100%;
+                /* Make buttons take full width */
+            }
+
+            #decreaseSpeedBtn,
+            #increaseSpeedBtn,
+            #toggleControlsBtn {
+                flex-grow: 1;
+                /* Allow buttons to expand */
+            }
+
+            canvas {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="controls">
-        <div id="controls-header"><span class="not-selectable">Controls - Drag to move</span></div>
-        <!-- <h3 class="not-selectable">Game of Life Controls</h3> -->
+        <div id="controls-header" class="not-selectable">
+            <span id="headerText">Controls - Drag to move</span>
+            <button id="decreaseSpeedBtn" class="header-btn hidden">-</button>
+            <button id="increaseSpeedBtn" class="header-btn hidden">+</button>
+            <button id="toggleControlsBtn" class="header-btn">≡</button>
+        </div>
         <label for="birthLimit" class="not-selectable">Birth Limit:</label>
         <input type="number" id="birthLimit" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
         <br>
@@ -96,9 +187,9 @@
         <br><br>
 
         <div class="slider-container">
-            <label for="speedSlider" class="not-selectable">Speed (Updates per second):</label>
+            <label for="speedSlider" class="not-selectable">Speed:</label>
             <input type="range" id="speedSlider" min="0" max="10" value="0" oninput="updateConditions()" />
-            <span class="not-selectable"><span id="speedValue">0</span> Updates/second</span>
+            <span class="not-selectable"><span id="speedValue">0</span> Updates/sec</span>
         </div>
     </div>
 
@@ -115,6 +206,7 @@
                 }
             }
         }
+
         // Make control screen draggable
         function getOffset(el, ev) {
             const rect = el.getBoundingClientRect();
@@ -128,9 +220,47 @@
         window.onload = addListeners;
 
         function addListeners() {
-            document.getElementById('controls-header').addEventListener('mousedown', mouseDown, false);
+            const header = document.getElementById('controls-header');
+            const headerText = document.getElementById('headerText');
+
+            if (window.innerWidth > 768) {
+                header.addEventListener('mousedown', mouseDown, false);
+                document.getElementById('controls').classList.remove('collapsed');
+                document.getElementById('increaseSpeedBtn').classList.add('hidden');
+                document.getElementById('decreaseSpeedBtn').classList.add('hidden');
+                document.getElementById('toggleControlsBtn').classList.add('hidden');
+            } else {
+                document.getElementById('controls').classList.remove('collapsed');
+                document.getElementById('increaseSpeedBtn').classList.add('hidden');
+                document.getElementById('decreaseSpeedBtn').classList.add('hidden');
+                document.getElementById('toggleControlsBtn').classList.remove('hidden');
+                header.style.cursor = 'default';
+                headerText.textContent = 'Controls';
+            }
             window.addEventListener('mouseup', mouseUp, false);
-            window.addEventListener('resize', (ev) => { resizeCanvas(); drawGrid(); }, false);
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                drawGrid();
+
+                if (window.innerWidth <= 768) {
+                    document.getElementById('controls').classList.remove('collapsed');
+                    document.getElementById('increaseSpeedBtn').classList.add('hidden');
+                    document.getElementById('decreaseSpeedBtn').classList.add('hidden');
+                    document.getElementById('toggleControlsBtn').classList.remove('hidden');
+                    header.removeEventListener('mousedown', mouseDown);
+                    header.style.cursor = 'default';
+                    headerText.textContent = 'Controls';
+                } else {
+                    document.getElementById('controls').classList.remove('collapsed');
+                    document.getElementById('increaseSpeedBtn').classList.add('hidden');
+                    document.getElementById('decreaseSpeedBtn').classList.add('hidden');
+                    document.getElementById('toggleControlsBtn').classList.add('hidden');
+                    header.addEventListener('mousedown', mouseDown, false);
+                    header.style.cursor = 'move';
+                    headerText.textContent = 'Controls - Drag to move';
+                }
+            }, false);
         }
 
         function mouseUp() {
@@ -163,7 +293,6 @@
 
         function divMove(e) {
             const div = document.getElementById('controls');
-            // div.style.position = 'absolute';
             div.style.top = (e.clientY - diff.top) + 'px';
             div.style.left = (e.clientX - diff.left) + 'px';
         }
@@ -174,6 +303,14 @@
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            let navHeight = 0;
+            if (window.innerWidth <= 768) {
+                const controls = document.getElementById('controls');
+                navHeight = controls.offsetHeight;
+            }
+            console.log(navHeight);
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - navHeight;
             calculateGridMetrics();
         }
 
@@ -192,13 +329,13 @@
             grid = null;
             grid = Array.from({ length: cols }, () => Array(rows).fill(0));
         }
-        
+
         updateGridSize();
 
         for (let i = 0; i < cols; i++) {
             grid[i] = new Array(rows).fill(0); // 0 for dead, 1 for alive
         }
-        
+
         // Cell size and grid offset (recomputed on resize)
         let cellSize = 0;
         let offsetX = 0;
@@ -386,6 +523,86 @@
         // Update speed slider values
         const speedSlider = document.getElementById('speedSlider').value = 0;
         const speedValue = document.getElementById('speedValue').textContent = 0;
+
+
+        // Mobile events
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', () => {
+            isMouseDown = false;
+            drawMode = null;
+        });
+
+        function getTouchPos(touch) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: Math.floor((touch.clientX - rect.left - offsetX) / cellSize),
+                y: Math.floor((touch.clientY - rect.top - offsetY) / cellSize)
+            };
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const pos = getTouchPos(touch);
+
+            if (pos.x < 0 || pos.x >= cols || pos.y < 0 || pos.y >= rows) return;
+
+            isMouseDown = true;
+            drawMode = grid[pos.x][pos.y] === 0 ? 1 : 0;
+            grid[pos.x][pos.y] = drawMode;
+            drawGrid();
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isMouseDown) return;
+
+            const touch = e.touches[0];
+            const pos = getTouchPos(touch);
+
+            if (pos.x < 0 || pos.x >= cols || pos.y < 0 || pos.y >= rows) return;
+
+            grid[pos.x][pos.y] = drawMode;
+            drawGrid();
+        }
+
+        // Mobile collapse buttons
+        const controls = document.getElementById('controls');
+        const toggleBtn = document.getElementById('toggleControlsBtn');
+        const speedSliderEl = document.getElementById('speedSlider');
+        const speedValueEl = document.getElementById('speedValue');
+        const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
+        const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
+
+
+        toggleBtn.addEventListener('click', () => {
+            controls.classList.toggle('collapsed');
+            increaseSpeedBtn.classList.toggle('hidden');
+            decreaseSpeedBtn.classList.toggle('hidden');
+            resizeCanvas();
+            drawGrid();
+        });
+
+        increaseSpeedBtn.addEventListener('click', () => {
+            if (updateSpeed < 10) {
+                updateSpeed++;
+                speedSliderEl.value = updateSpeed;
+                speedValueEl.textContent = updateSpeed;
+                clearInterval(gameInterval);
+                startGame();
+            }
+        });
+
+        decreaseSpeedBtn.addEventListener('click', () => {
+            if (updateSpeed > 0) {
+                updateSpeed--;
+                speedSliderEl.value = updateSpeed;
+                speedValueEl.textContent = updateSpeed;
+                clearInterval(gameInterval);
+                startGame();
+            }
+        });
 
         // Initial setup
         resizeCanvas();
