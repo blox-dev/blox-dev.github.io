@@ -19,6 +19,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            font-size: 16px;
             font-family: Arial, sans-serif;
         }
 
@@ -57,7 +58,7 @@
             z-index: 80;
         }
 
-        .slider-container {
+        #slider-container {
             display: flex;
             flex-direction: column;
         }
@@ -72,7 +73,6 @@
             background: #fff;
             border: 1px solid #aaa;
             border-radius: 3px;
-            font-size: 14px;
             cursor: pointer;
             z-index: 101;
         }
@@ -80,7 +80,6 @@
         .header-btn {
             margin-left: 5px;
             padding: 2px 10px;
-            font-size: 14px;
             border: 1px solid #aaa;
             border-radius: 3px;
             background: #fff;
@@ -101,9 +100,88 @@
             display: none;
         }
 
-        p {
+        p, label {
             margin: auto 10px;
         }
+
+        /* Tape stuff */
+        .tape-container {
+            display: flex;
+            justify-content: flex-start;
+            margin: 5px;
+        }
+
+        .tape-container p {
+            margin: auto 10px;
+        }
+
+        button {
+            flex-grow: 1;
+        margin: 0 3px;
+        padding: 5px 0;
+        /* font-size: 16px; */
+        }
+
+        .tape-wrapper {
+            width: 100px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: #f9f9f9;
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .tape {
+            display: flex;
+            transition: transform 0.3s ease;
+            touch-action: pan-y;
+            will-change: transform;
+            cursor: grab;
+        }
+
+        .tape:active {
+            cursor: grabbing;
+        }
+
+        .tape-number {
+            flex: 0 0 100px;
+            text-align: center;
+            font-size: 24px;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+
+        .tape-number.active {
+            opacity: 1;
+        }
+
+        @keyframes hintMotion {
+            0% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            100% {
+                transform: translateX(-5px);
+            }
+        }
+
+        .help-tip {
+            position: float;
+            background: #333;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            opacity: 0.9;
+            z-index: 100;
+            animation: hintMotion 1.5s ease-in-out infinite;
+        }
+
 
         /* Mobile Styles */
         @media (max-width: 768px) {
@@ -129,14 +207,6 @@
                 align-items: center;
             }
 
-            #controls label,
-            #controls input,
-            #controls button,
-            #controls .slider-container {
-                flex: 1 1 45%;
-                margin: 5px 0;
-            }
-
             #controls-header {
                 width: 100%;
                 display: flex;
@@ -149,21 +219,19 @@
                 flex-grow: 1;
                 margin: 0 3px;
                 padding: 5px 0;
-                font-size: 16px;
+                /* font-size: 16px; */
                 max-width: 33vw;
                 width: 100%;
-                /* Make buttons take full width */
             }
 
             #decreaseSpeedBtn,
             #increaseSpeedBtn,
             #toggleControlsBtn {
                 flex-grow: 1;
-                /* Allow buttons to expand */
             }
 
-            .slider-container {
-                flex-direction: row;;
+            #slider-container {
+                flex-direction: row;
             }
 
             canvas {
@@ -185,32 +253,27 @@
             <button id="toggleControlsBtn" class="header-btn">≡</button>
         </div>
         <div class="controls-row">
-            <div>
+            <div id="birth-limit-container">
                 <label for="birthLimit" class="not-selectable">Birth Limit:</label>
-                <input type="number" id="birthLimit" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
             </div>
-            <div>
+            <div id="survival-limit-min-container">
                 <label for="survivalMin" class="not-selectable">Survival Min:</label>
-                <input type="number" id="survivalMin" value="2" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
             </div>
-            <div>
+            <div id="survival-limit-max-container">
                 <label for="survivalMax" class="not-selectable">Survival Max:</label>
-                <input type="number" id="survivalMax" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
             </div>
         </div>
         <div class="controls-row">
-            <div>
+            <div id="num-rows-container">
                 <label for="rows" class="not-selectable"># of Rows:</label>
-                <input type="number" id="rows" value="10" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+                <div id="helpTip" class="help-tip" i-data="before">&#8592; Drag left/right to change value</div>
             </div>
-            <div>
+            <div id="num-cols-container">
                 <label for="cols" class="not-selectable"># of Columns:</label>
-                <input type="number" id="cols" value="20" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
             </div>
-            <div class="slider-container">
+            <div id="slider-container">
                 <label for="speedSlider" class="not-selectable">Speed:</label>
-                <input type="range" id="speedSlider" min="0" max="10" value="0" oninput="updateConditions()" />
-                <p class="not-selectable"><span id="speedValue">0</span> Updates/sec</p>
+                <p class="not-selectable" i-data="before"><span id="speedValue">0</span> Updates/sec</p>
             </div>
         </div>
         <div class="controls-row">
@@ -222,16 +285,143 @@
     <canvas id="gameCanvas"></canvas>
 
     <script>
-        function enforceMinMax(el) {
-            if (el.value != "") {
-                if (parseInt(el.value) < parseInt(el.min)) {
-                    el.value = el.min;
+        // Custom numeric and range input class
+        // This class creates a tape-like input for selecting numbers in a range
+        // It allows for touch and mouse dragging to change the value
+        class TapeInput {
+            constructor(container, { min = 0, max = 10, initial = 0, width = 50, scrollDelta = 30 } = {}) {
+                this.min = min;
+                this.max = max;
+                this.initial = initial;
+                this.current = Math.max(min, Math.min(initial, max));
+                this.width = width;
+                this.scrollDelta = scrollDelta;
+                this.startX = null;
+                this.isDragging = false;
+
+                this.container = container;
+                container.classList.add('tape-container');
+
+                this.wrapper = document.createElement('div');
+                this.wrapper.className = 'tape-wrapper';
+                this.wrapper.style.width = `${this.width}px`;
+
+                this.tape = document.createElement('div');
+                this.tape.className = 'tape';
+
+                this.wrapper.appendChild(this.tape);
+
+                // Add to the end unless specified otherwise
+                if (container.children.length == 0) {
+                    this.container.appendChild(this.wrapper);
+                } else {
+                    let inserted = false;
+                    for (let i = 0; i < container.children.length; i++) {
+                        // Only value that we really need to check is 'before', 'after' is there for semantic completeness
+                        if (container.children[i].getAttribute('i-data') === 'before') {
+                            container.insertBefore(this.wrapper, container.children[i]);
+                            inserted = true;
+                            break;
+                        } else if (container.children[i].getAttribute('i-data') === 'after') {
+                            container.insertBefore(this.wrapper, container.children[i].nextSibling);
+                            inserted = true;
+                            break;
+                        }
+                    }
+                    if (!inserted) {
+                        this.container.appendChild(this.wrapper);
+                    }
                 }
-                if (parseInt(el.value) > parseInt(el.max)) {
-                    el.value = el.max;
+
+                this.buildTape();
+
+                const offset = (this.current - this.min) * this.width;
+                this.tape.style.transform = `translateX(-${offset}px)`;
+                this.numbers.forEach((n, i) => {
+                    n.classList.toggle('active', i === this.current - this.min);
+                });
+
+                this.bindEvents();
+            }
+
+            buildTape() {
+                for (let i = this.min; i <= this.max; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'tape-number';
+                    el.style.flexBasis = `${this.width}px`;
+                    el.textContent = i;
+                    this.tape.appendChild(el);
+                }
+                this.numbers = this.tape.querySelectorAll('.tape-number');
+            }
+
+            updateTape() {
+                const offset = (this.current - this.min) * this.width;
+                this.tape.style.transform = `translateX(-${offset}px)`;
+                this.numbers.forEach((n, i) => {
+                    n.classList.toggle('active', i === this.current - this.min);
+                });
+                updateConditions();
+            }
+
+            bindEvents() {
+                this.tape.addEventListener('touchstart', e => this.startDrag(e.touches[0].clientX));
+                this.tape.addEventListener('touchmove', e => this.moveDrag(e.touches[0].clientX));
+                this.tape.addEventListener('touchend', () => this.endDrag());
+
+                this.tape.addEventListener('mousedown', e => this.startDrag(e.clientX));
+                window.addEventListener('mousemove', e => this.moveDrag(e.clientX));
+                window.addEventListener('mouseup', () => this.endDrag());
+            }
+
+            startDrag(x) {
+                this.isDragging = true;
+                this.startX = x;
+            }
+
+            moveDrag(x) {
+                if (!this.isDragging || this.startX === null) return;
+                const deltaX = x - this.startX;
+                if (Math.abs(deltaX) > this.scrollDelta) {
+                    if (deltaX < 0 && this.current < this.max) this.current++;
+                    else if (deltaX > 0 && this.current > this.min) this.current--;
+                    this.updateTape();
+                    this.startX = x;
                 }
             }
+
+            endDrag() {
+                this.isDragging = false;
+                this.startX = null;
+                if (this.current !== this.initial) {
+                    // Help tip dismiss
+                    helpTip.classList.add('hidden');
+                }
+            }
+
+            getValue() {
+                return this.current;
+            }
+
+            setValue(val) {
+                if (val >= this.min && val <= this.max) {
+                    this.current = val;
+                    this.updateTape();
+                }
+            }
+
+            reset() {
+                this.current = this.initial;
+                this.updateTape();
+            }
         }
+
+        let birthLimitTape;
+        let survivalLimitMinTape;
+        let survivalLimitMaxTape;
+        let speedTape;
+        let numRowsTape;
+        let numColsTape;
 
         // Make control screen draggable
         function getOffset(el, ev) {
@@ -293,6 +483,20 @@
                     headerText.textContent = 'Controls - Drag to move';
                 }
             }, false);
+
+            // Build tapes
+            birthLimitTape = new TapeInput(document.getElementById('birth-limit-container'), { min: 1, max: 8, initial: birthLimit });
+            survivalLimitMinTape = new TapeInput(document.getElementById('survival-limit-min-container'), { min: 1, max: 8, initial: survivalLimit[0] });
+            survivalLimitMaxTape = new TapeInput(document.getElementById('survival-limit-max-container'), { min: 1, max: 8, initial: survivalLimit[1] });
+            numRowsTape = new TapeInput(document.getElementById('num-rows-container'), { min: 1, max: 100, initial: rows, scrollDelta: 10 });
+            numColsTape = new TapeInput(document.getElementById('num-cols-container'), { min: 1, max: 100, initial: cols, scrollDelta: 10 });
+            speedTape = new TapeInput(document.getElementById('slider-container'), { min: 0, max: 10, initial: speedValue });
+
+            // Initial setup
+            resizeCanvas();
+            updateConditions();
+            drawGrid();
+            startGame();
         }
 
         function mouseUp() {
@@ -389,8 +593,12 @@
         let birthLimit = 3; // Number of neighbors to become alive
         let survivalLimit = [2, 3]; // Number of neighbors to stay alive
 
-        // Speed (updates per second)
-        let updateSpeed = 0; // Default: 0
+        let updateSpeed = 0; // Simulation speed (updates per second)
+
+        // Update speed slider values
+        let speedValue = 0;
+        document.getElementById('speedValue').textContent = 0;
+
 
         // Mouse interaction for creating cells
         let isMouseDown = false;
@@ -462,14 +670,14 @@
 
         // Update the conditions based on user input
         function updateConditions() {
-            birthLimit = parseInt(document.getElementById('birthLimit').value);
+            birthLimit = birthLimitTape.getValue();
             survivalLimit = [
-                parseInt(document.getElementById('survivalMin').value),
-                parseInt(document.getElementById('survivalMax').value)
-            ];
+                survivalLimitMinTape.getValue(),
+                survivalLimitMaxTape.getValue()
+            ]
 
-            rows = parseInt(document.getElementById('rows').value);
-            cols = parseInt(document.getElementById('cols').value);
+            rows = numRowsTape.getValue();
+            cols = numColsTape.getValue();
 
             // Only update grid size if it has changed
             if (prevCols !== cols || prevRows !== rows) {
@@ -480,7 +688,7 @@
                 drawGrid();
             }
 
-            updateSpeed = parseInt(document.getElementById('speedSlider').value);
+            updateSpeed = speedTape.getValue();
             document.getElementById('speedValue').textContent = updateSpeed;
 
             // Update game speed
@@ -503,13 +711,14 @@
         }
 
         function resetConditions() {
+            birthLimitTape.reset();
+            birthLimitTape.reset();
+            survivalLimitMinTape.reset();
+            survivalLimitMaxTape.reset();
 
-            document.getElementById('birthLimit').value = 3;
-            document.getElementById('survivalMin').value = 2;
-            document.getElementById('survivalMax').value = 3;
+            updateSpeed = 0;
+            speedTape.reset();
 
-            updateSpeed = 0; // Default: 0
-            document.getElementById('speedSlider').value = 0;
             document.getElementById('speedValue').textContent = 0;
 
             // Update game speed
@@ -550,11 +759,6 @@
             grid[x][y] = drawMode;
             drawGrid(); // Redraw grid after change
         }
-
-        // Update speed slider values
-        const speedSlider = document.getElementById('speedSlider').value = 0;
-        const speedValue = document.getElementById('speedValue').textContent = 0;
-
 
         // Mobile events
         canvas.addEventListener('touchstart', handleTouchStart);
@@ -635,11 +839,7 @@
             }
         });
 
-        // Initial setup
-        resizeCanvas();
-        updateConditions();
-        drawGrid();
-        startGame();
+        const helpTip = document.getElementById('helpTip');
     </script>
 
 </body>
