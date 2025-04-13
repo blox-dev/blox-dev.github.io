@@ -222,18 +222,22 @@
         function addListeners() {
             const header = document.getElementById('controls-header');
             const headerText = document.getElementById('headerText');
+            const controlsDiv = document.getElementById('controls');
+            const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
+            const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
+            const toggleControlsBtn = document.getElementById('toggleControlsBtn');
 
             if (window.innerWidth > 768) {
                 header.addEventListener('mousedown', mouseDown, false);
-                document.getElementById('controls').classList.remove('collapsed');
-                document.getElementById('increaseSpeedBtn').classList.add('hidden');
-                document.getElementById('decreaseSpeedBtn').classList.add('hidden');
-                document.getElementById('toggleControlsBtn').classList.add('hidden');
+                controls.classList.remove('collapsed');
+                increaseSpeedBtn.classList.add('hidden');
+                decreaseSpeedBtn.classList.add('hidden');
+                toggleControlsBtn.classList.add('hidden');
             } else {
-                document.getElementById('controls').classList.remove('collapsed');
-                document.getElementById('increaseSpeedBtn').classList.add('hidden');
-                document.getElementById('decreaseSpeedBtn').classList.add('hidden');
-                document.getElementById('toggleControlsBtn').classList.remove('hidden');
+                controls.classList.remove('collapsed');
+                increaseSpeedBtn.classList.add('hidden');
+                decreaseSpeedBtn.classList.add('hidden');
+                toggleControlsBtn.classList.remove('hidden');
                 header.style.cursor = 'default';
                 headerText.textContent = 'Controls';
             }
@@ -244,18 +248,20 @@
                 drawGrid();
 
                 if (window.innerWidth <= 768) {
-                    document.getElementById('controls').classList.remove('collapsed');
-                    document.getElementById('increaseSpeedBtn').classList.add('hidden');
-                    document.getElementById('decreaseSpeedBtn').classList.add('hidden');
-                    document.getElementById('toggleControlsBtn').classList.remove('hidden');
+                    controls.classList.remove('collapsed');
+                    increaseSpeedBtn.classList.add('hidden');
+                    decreaseSpeedBtn.classList.add('hidden');
+                    toggleControlsBtn.classList.remove('hidden');
                     header.removeEventListener('mousedown', mouseDown);
                     header.style.cursor = 'default';
                     headerText.textContent = 'Controls';
+                    controls.style.removeProperty('top');
+                    controls.style.removeProperty('left');
                 } else {
-                    document.getElementById('controls').classList.remove('collapsed');
-                    document.getElementById('increaseSpeedBtn').classList.add('hidden');
-                    document.getElementById('decreaseSpeedBtn').classList.add('hidden');
-                    document.getElementById('toggleControlsBtn').classList.add('hidden');
+                    controls.classList.remove('collapsed');
+                    increaseSpeedBtn.classList.add('hidden');
+                    decreaseSpeedBtn.classList.add('hidden');
+                    toggleControlsBtn.classList.add('hidden');
                     header.addEventListener('mousedown', mouseDown, false);
                     header.style.cursor = 'move';
                     headerText.textContent = 'Controls - Drag to move';
@@ -308,7 +314,6 @@
                 const controls = document.getElementById('controls');
                 navHeight = controls.offsetHeight;
             }
-            console.log(navHeight);
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight - navHeight;
             calculateGridMetrics();
