@@ -23,6 +23,9 @@
         }
 
         #controls {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
             position: absolute;
             z-index: 90;
             border: 1px solid black;
@@ -98,9 +101,14 @@
             display: none;
         }
 
+        p {
+            margin: auto 10px;
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             #controls {
+                flex-direction: row;
                 position: fixed;
                 bottom: 0;
                 top: auto;
@@ -110,10 +118,15 @@
                 border-radius: 0;
                 padding: 1px;
                 overflow-y: auto;
-                display: flex;
-                flex-wrap: wrap;
                 justify-content: space-around;
                 z-index: 99;
+            }
+
+            .controls-row {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
             }
 
             #controls label,
@@ -149,6 +162,10 @@
                 /* Allow buttons to expand */
             }
 
+            .slider-container {
+                flex-direction: row;;
+            }
+
             canvas {
                 display: block;
                 position: absolute;
@@ -162,34 +179,43 @@
 <body>
     <div id="controls">
         <div id="controls-header" class="not-selectable">
-            <span id="headerText">Controls - Drag to move</span>
+            <p id="headerText">Controls - Drag to move</p>
             <button id="decreaseSpeedBtn" class="header-btn hidden">-</button>
             <button id="increaseSpeedBtn" class="header-btn hidden">+</button>
             <button id="toggleControlsBtn" class="header-btn">≡</button>
         </div>
-        <label for="birthLimit" class="not-selectable">Birth Limit:</label>
-        <input type="number" id="birthLimit" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
-        <br>
-        <label for="survivalMin" class="not-selectable">Survival Min:</label>
-        <input type="number" id="survivalMin" value="2" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
-        <br>
-        <label for="survivalMax" class="not-selectable">Survival Max:</label>
-        <input type="number" id="survivalMax" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
-        <br>
-        <label for="rows" class="not-selectable"># of Rows:</label>
-        <input type="number" id="rows" value="10" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
-        <br>
-        <label for="cols" class="not-selectable"># of Columns:</label>
-        <input type="number" id="cols" value="20" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
-        <br>
-        <button onclick="resetConditions()">Reset Conditions</button>
-        <button onclick="clearGrid()">Clear Grid</button>
-        <br><br>
-
-        <div class="slider-container">
-            <label for="speedSlider" class="not-selectable">Speed:</label>
-            <input type="range" id="speedSlider" min="0" max="10" value="0" oninput="updateConditions()" />
-            <span class="not-selectable"><span id="speedValue">0</span> Updates/sec</span>
+        <div class="controls-row">
+            <div>
+                <label for="birthLimit" class="not-selectable">Birth Limit:</label>
+                <input type="number" id="birthLimit" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+            </div>
+            <div>
+                <label for="survivalMin" class="not-selectable">Survival Min:</label>
+                <input type="number" id="survivalMin" value="2" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+            </div>
+            <div>
+                <label for="survivalMax" class="not-selectable">Survival Max:</label>
+                <input type="number" id="survivalMax" value="3" min="1" max="8" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+            </div>
+        </div>
+        <div class="controls-row">
+            <div>
+                <label for="rows" class="not-selectable"># of Rows:</label>
+                <input type="number" id="rows" value="10" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+            </div>
+            <div>
+                <label for="cols" class="not-selectable"># of Columns:</label>
+                <input type="number" id="cols" value="20" min="1" max="100" onchange="updateConditions()" onkeyup="enforceMinMax(this)" />
+            </div>
+            <div class="slider-container">
+                <label for="speedSlider" class="not-selectable">Speed:</label>
+                <input type="range" id="speedSlider" min="0" max="10" value="0" oninput="updateConditions()" />
+                <p class="not-selectable"><span id="speedValue">0</span> Updates/sec</p>
+            </div>
+        </div>
+        <div class="controls-row">
+            <button onclick="resetConditions()">Reset Conditions</button>
+            <button onclick="clearGrid()">Clear Grid</button>
         </div>
     </div>
 
