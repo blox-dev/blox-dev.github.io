@@ -23,6 +23,11 @@
             font-family: Arial, sans-serif;
         }
 
+        button {
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
         #controls {
             display: flex;
             flex-direction: column;
@@ -41,7 +46,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        #controls input,
         #controls button {
             margin: 5px;
         }
@@ -56,11 +60,6 @@
 
         canvas {
             z-index: 80;
-        }
-
-        #slider-container {
-            display: flex;
-            flex-direction: column;
         }
 
         #controls.collapsed {
@@ -100,7 +99,8 @@
             display: none;
         }
 
-        p, label {
+        p,
+        label {
             margin: auto 10px;
         }
 
@@ -113,13 +113,6 @@
 
         .tape-container p {
             margin: auto 10px;
-        }
-
-        button {
-            flex-grow: 1;
-        margin: 0 3px;
-        padding: 5px 0;
-        /* font-size: 16px; */
         }
 
         .tape-wrapper {
@@ -219,7 +212,6 @@
                 flex-grow: 1;
                 margin: 0 3px;
                 padding: 5px 0;
-                /* font-size: 16px; */
                 max-width: 33vw;
                 width: 100%;
             }
@@ -228,10 +220,6 @@
             #increaseSpeedBtn,
             #toggleControlsBtn {
                 flex-grow: 1;
-            }
-
-            #slider-container {
-                flex-direction: row;
             }
 
             canvas {
@@ -253,6 +241,18 @@
             <button id="toggleControlsBtn" class="header-btn">≡</button>
         </div>
         <div class="controls-row">
+            <div id="slider-container">
+                <label for="speedSlider" class="not-selectable">Animation Speed:</label>
+                <div id="helpTip" class="help-tip" i-data="before">&#8596;</div>
+            </div>
+            <div id="num-rows-container">
+                <label for="rows" class="not-selectable"># of Rows:</label>
+            </div>
+            <div id="num-cols-container">
+                <label for="cols" class="not-selectable"># of Columns:</label>
+            </div>
+        </div>
+        <div class="controls-row">
             <div id="birth-limit-container">
                 <label for="birthLimit" class="not-selectable">Birth Limit:</label>
             </div>
@@ -264,21 +264,9 @@
             </div>
         </div>
         <div class="controls-row">
-            <div id="num-rows-container">
-                <label for="rows" class="not-selectable"># of Rows:</label>
-                <div id="helpTip" class="help-tip" i-data="before">&#8592; Drag left/right to change value</div>
-            </div>
-            <div id="num-cols-container">
-                <label for="cols" class="not-selectable"># of Columns:</label>
-            </div>
-            <div id="slider-container">
-                <label for="speedSlider" class="not-selectable">Speed:</label>
-                <p class="not-selectable" i-data="before"><span id="speedValue">0</span> Updates/sec</p>
-            </div>
-        </div>
-        <div class="controls-row">
-            <button onclick="resetConditions()">Reset Conditions</button>
-            <button onclick="clearGrid()">Clear Grid</button>
+            <button onclick="resetConditions()">Reset &#8635;</button>
+            <button onclick="clearGrid()">Empty &#9633;</button>
+            <button onclick="randomGrid()">Random &#9635;</button>
         </div>
     </div>
 
@@ -362,6 +350,7 @@
                     n.classList.toggle('active', i === this.current - this.min);
                 });
                 updateConditions();
+                startGame();
             }
 
             bindEvents() {
@@ -456,7 +445,14 @@
                 toggleControlsBtn.classList.remove('hidden');
                 header.style.cursor = 'default';
                 headerText.textContent = 'Controls';
+
+                // Extra rows for mobile!!
+                rows = 20;
+                prevRows = 20;
+                randomGrid();
             }
+
+
             window.addEventListener('mouseup', mouseUp, false);
 
             window.addEventListener('resize', () => {
@@ -485,12 +481,12 @@
             }, false);
 
             // Build tapes
+            speedTape = new TapeInput(document.getElementById('slider-container'), { min: 0, max: 10, initial: updateSpeed });
+            numRowsTape = new TapeInput(document.getElementById('num-rows-container'), { min: 1, max: 100, initial: rows, scrollDelta: 10 });
+            numColsTape = new TapeInput(document.getElementById('num-cols-container'), { min: 1, max: 100, initial: cols, scrollDelta: 10 });
             birthLimitTape = new TapeInput(document.getElementById('birth-limit-container'), { min: 1, max: 8, initial: birthLimit });
             survivalLimitMinTape = new TapeInput(document.getElementById('survival-limit-min-container'), { min: 1, max: 8, initial: survivalLimit[0] });
             survivalLimitMaxTape = new TapeInput(document.getElementById('survival-limit-max-container'), { min: 1, max: 8, initial: survivalLimit[1] });
-            numRowsTape = new TapeInput(document.getElementById('num-rows-container'), { min: 1, max: 100, initial: rows, scrollDelta: 10 });
-            numColsTape = new TapeInput(document.getElementById('num-cols-container'), { min: 1, max: 100, initial: cols, scrollDelta: 10 });
-            speedTape = new TapeInput(document.getElementById('slider-container'), { min: 0, max: 10, initial: speedValue });
 
             // Initial setup
             resizeCanvas();
@@ -560,16 +556,31 @@
 
         let grid = null;
 
-        function updateGridSize() {
+        function resetGrid() {
             grid = null;
-            grid = Array.from({ length: cols }, () => Array(rows).fill(0));
+            grid = new Array(cols);
+            for (let i = 0; i < cols; i++) {
+                grid[i] = new Uint8Array(rows);
+            }
         }
 
-        updateGridSize();
-
-        for (let i = 0; i < cols; i++) {
-            grid[i] = new Array(rows).fill(0); // 0 for dead, 1 for alive
+        function randomGrid() {
+            grid = null;
+            grid = new Array(cols);
+            for (let r = 0; r < cols; r++) {
+                const row = new Uint8Array(rows);
+                // Batched random generation for performance, probably not necessary for small grids
+                for (let i = 0; i < rows; i += 32) {
+                    const rand = Math.floor(Math.random() * 0xFFFFFFFF);
+                    for (let j = 0; j < 32 && i + j < rows; j++) {
+                        row[i + j] = (rand >> j) & 1;
+                    }
+                }
+                grid[r] = row;
+            }
         }
+
+        randomGrid();
 
         // Cell size and grid offset (recomputed on resize)
         let cellSize = 0;
@@ -591,19 +602,14 @@
 
         // Customizable Life and Death Conditions
         let birthLimit = 3; // Number of neighbors to become alive
-        let survivalLimit = [2, 3]; // Number of neighbors to stay alive
+        let survivalLimit = [2, 4]; // Number of neighbors to stay alive
 
-        let updateSpeed = 0; // Simulation speed (updates per second)
-
-        // Update speed slider values
-        let speedValue = 0;
-        document.getElementById('speedValue').textContent = 0;
-
+        let updateSpeed = 1; // Simulation speed (updates per second)
 
         // Mouse interaction for creating cells
         let isMouseDown = false;
         let drawMode = null;
-        let gameInterval;
+        let gameInterval = null;
 
         // Get the number of neighbors for a cell (including wraparound behavior)
         function getNeighborCount(x, y) {
@@ -660,6 +666,9 @@
 
         // Start the game loop with adjustable speed
         function startGame() {
+            if (gameInterval) {
+                clearInterval(gameInterval);
+            }
             if (updateSpeed !== 0) {
                 gameInterval = setInterval(() => {
                     updateBoard();
@@ -683,17 +692,12 @@
             if (prevCols !== cols || prevRows !== rows) {
                 prevCols = cols;
                 prevRows = rows;
-                updateGridSize();
+                resetGrid();
                 calculateGridMetrics();
                 drawGrid();
             }
 
             updateSpeed = speedTape.getValue();
-            document.getElementById('speedValue').textContent = updateSpeed;
-
-            // Update game speed
-            clearInterval(gameInterval);
-            startGame();
         }
 
         function clearGrid() {
@@ -716,13 +720,10 @@
             survivalLimitMinTape.reset();
             survivalLimitMaxTape.reset();
 
-            updateSpeed = 0;
             speedTape.reset();
-
-            document.getElementById('speedValue').textContent = 0;
+            updateSpeed = speedTape.getValue();
 
             // Update game speed
-            clearInterval(gameInterval);
             startGame();
         }
 
@@ -805,8 +806,6 @@
         // Mobile collapse buttons
         const controls = document.getElementById('controls');
         const toggleBtn = document.getElementById('toggleControlsBtn');
-        const speedSliderEl = document.getElementById('speedSlider');
-        const speedValueEl = document.getElementById('speedValue');
         const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
         const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
 
@@ -822,9 +821,7 @@
         increaseSpeedBtn.addEventListener('click', () => {
             if (updateSpeed < 10) {
                 updateSpeed++;
-                speedSliderEl.value = updateSpeed;
-                speedValueEl.textContent = updateSpeed;
-                clearInterval(gameInterval);
+                speedTape.setValue(updateSpeed);
                 startGame();
             }
         });
@@ -832,9 +829,7 @@
         decreaseSpeedBtn.addEventListener('click', () => {
             if (updateSpeed > 0) {
                 updateSpeed--;
-                speedSliderEl.value = updateSpeed;
-                speedValueEl.textContent = updateSpeed;
-                clearInterval(gameInterval);
+                speedTape.setValue(updateSpeed);
                 startGame();
             }
         });
