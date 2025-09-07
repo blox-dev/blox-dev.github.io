@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            position: absolute;
+            z-index: 90;
+            border: 1px solid black;
+            top: 10px;
+            left: 10px;
+            white-space: nowrap;
+            max-width: 100vw;
+            overflow: hidden;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #controls button {
+            margin: 5px;
+        }
+
+        #controls-header {
+            z-index: 100;
+            padding: 10px;
+            cursor: move;
+            background-color: #2196F3;
+            color: #fff;
+        }
+
+        canvas {
+            z-index: 80;
+        }
+
+        #controls.collapsed {
+            height: 40px;
+            overflow: hidden;
+            padding-bottom: 0;
+        }
+
+        #toggleControlsBtn {
+            background: #fff;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .header-btn {
+            margin-left: 5px;
+            padding: 2px 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        /* Helper classes */
+        .not-selectable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        p,
+        label {
+            margin: auto 10px;
+        }
+
+        /* Tape stuff */
+        .tape-container {
+            display: flex;
+            justify-content: flex-start;
+            margin: 5px;
+        }
+
+        .tape-container p {
+            margin: auto 10px;
+        }
+
+        .tape-wrapper {
+            width: 100px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: #f9f9f9;
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .tape {
+            display: flex;
+            transition: transform 0.3s ease;
+            touch-action: pan-y;
+            will-change: transform;
+            cursor: grab;
+        }
+
+        .tape:active {
+            cursor: grabbing;
+        }
+
+        .tape-number {
+            flex: 0 0 100px;
+            text-align: center;
+            font-size: 24px;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+
+        .tape-number.active {
+            opacity: 1;
+        }
+
+        @keyframes hintMotion {
+            0% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            100% {
+                transform: translateX(-5px);
+            }
+        }
+
+        .help-tip {
+            position: float;
+            background: #333;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            opacity: 0.9;
+            z-index: 100;
+            animation: hintMotion 1.5s ease-in-out infinite;
+        }
+
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            #controls {
+                flex-direction: row;
+                position: fixed;
+                bottom: 0;
+                top: auto;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 0;
+                padding: 1px;
+                overflow-y: auto;
+                justify-content: space-around;
+                z-index: 99;
+            }
+
+            .controls-row {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+            }
+
+            #controls-header {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 10px;
+            }
+
+            #controls-header button {
+                flex-grow: 1;
+                margin: 0 3px;
+                padding: 5px 0;
+                max-width: 33vw;
+                width: 100%;
+            }
+
+            #decreaseSpeedBtn,
+            #increaseSpeedBtn,
+            #toggleControlsBtn {
+                flex-grow: 1;
+            }
+
+            canvas {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="controls">
+        <div id="controls-header" class="not-selectable">
+            <p id="headerText">Controls - Drag to move</p>
+            <button id="decreaseSpeedBtn" class="header-btn hidden">-</button>
+            <button id="increaseSpeedBtn" class="header-btn hidden">+</button>
+            <button id="toggleControlsBtn" class="header-btn">≡</button>
+        </div>
+        <div class="controls-row">
+            <div id="slider-container">
+                <label for="speedSlider" class="not-selectable">Animation Speed:</label>
+                <div id="helpTip" class="help-tip" i-data="before">&#8596;</div>
+            </div>
+            <div id="num-rows-container">
+                <label for="rows" class="not-selectable"># of Rows:</label>
+            </div>
+            <div id="num-cols-container">
+                <label for="cols" class="not-selectable"># of Columns:</label>
+            </div>
+        </div>
+        <div class="controls-row">
+            <div id="birth-limit-container">
+                <label for="birthLimit" class="not-selectable">Birth Limit:</label>
+            </div>
+            <div id="survival-limit-min-container">
+                <label for="survivalMin" class="not-selectable">Survival Min:</label>
+            </div>
+            <div id="survival-limit-max-container">
+                <label for="survivalMax" class="not-selectable">Survival Max:</label>
+            </div>
+        </div>
+        <div class="controls-row">
+            <button onclick="resetConditions()">Reset &#8635;</button>
+            <button onclick="clearGrid()">Empty &#9633;</button>
+            <button onclick="randomGrid(); drawGrid();">Random &#9635;</button>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Custom numeric and range input class
+        // This class creates a tape-like input for selecting numbers in a range
+        // It allows for touch and mouse dragging to change the value
+        class TapeInput {
+            constructor(container, { min = 0, max = 10, initial = 0, width = 50, scrollDelta = 30 } = {}) {
+                this.min = min;
+                this.max = max;
+                this.initial = initial;
+                this.current = Math.max(min, Math.min(initial, max));
+                this.width = width;
+                this.scrollDelta = scrollDelta;
+                this.startX = null;
+                this.isDragging = false;
+
+                this.container = container;
+                container.classList.add('tape-container');
+
+                this.wrapper = document.createElement('div');
+                this.wrapper.className = 'tape-wrapper';
+                this.wrapper.style.width = `${this.width}px`;
+
+                this.tape = document.createElement('div');
+                this.tape.className = 'tape';
+
+                this.wrapper.appendChild(this.tape);
+
+                // Add to the end unless specified otherwise
+                if (container.children.length == 0) {
+                    this.container.appendChild(this.wrapper);
+                } else {
+                    let inserted = false;
+                    for (let i = 0; i < container.children.length; i++) {
+                        // Only value that we really need to check is 'before', 'after' is there for semantic completeness
+                        if (container.children[i].getAttribute('i-data') === 'before') {
+                            container.insertBefore(this.wrapper, container.children[i]);
+                            inserted = true;
+                            break;
+                        } else if (container.children[i].getAttribute('i-data') === 'after') {
+                            container.insertBefore(this.wrapper, container.children[i].nextSibling);
+                            inserted = true;
+                            break;
+                        }
+                    }
+                    if (!inserted) {
+                        this.container.appendChild(this.wrapper);
+                    }
+                }
+
+                this.buildTape();
+
+                const offset = (this.current - this.min) * this.width;
+                this.tape.style.transform = `translateX(-${offset}px)`;
+                this.numbers.forEach((n, i) => {
+                    n.classList.toggle('active', i === this.current - this.min);
+                });
+
+                this.bindEvents();
+            }
+
+            buildTape() {
+                for (let i = this.min; i <= this.max; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'tape-number';
+                    el.style.flexBasis = `${this.width}px`;
+                    el.textContent = i;
+                    this.tape.appendChild(el);
+                }
+                this.numbers = this.tape.querySelectorAll('.tape-number');
+            }
+
+            updateTape() {
+                const offset = (this.current - this.min) * this.width;
+                this.tape.style.transform = `translateX(-${offset}px)`;
+                this.numbers.forEach((n, i) => {
+                    n.classList.toggle('active', i === this.current - this.min);
+                });
+                updateConditions();
+                startGame();
+            }
+
+            bindEvents() {
+                this.tape.addEventListener('touchstart', e => this.startDrag(e.touches[0].clientX));
+                this.tape.addEventListener('touchmove', e => this.moveDrag(e.touches[0].clientX));
+                this.tape.addEventListener('touchend', () => this.endDrag());
+
+                this.tape.addEventListener('mousedown', e => this.startDrag(e.clientX));
+                window.addEventListener('mousemove', e => this.moveDrag(e.clientX));
+                window.addEventListener('mouseup', () => this.endDrag());
+            }
+
+            startDrag(x) {
+                this.isDragging = true;
+                this.startX = x;
+            }
+
+            moveDrag(x) {
+                if (!this.isDragging || this.startX === null) return;
+                const deltaX = x - this.startX;
+                if (Math.abs(deltaX) > this.scrollDelta) {
+                    if (deltaX < 0 && this.current < this.max) this.current++;
+                    else if (deltaX > 0 && this.current > this.min) this.current--;
+                    this.updateTape();
+                    this.startX = x;
+                }
+            }
+
+            endDrag() {
+                this.isDragging = false;
+                this.startX = null;
+                if (this.current !== this.initial) {
+                    // Help tip dismiss
+                    helpTip.classList.add('hidden');
+                }
+            }
+
+            getValue() {
+                return this.current;
+            }
+
+            setValue(val) {
+                if (val >= this.min && val <= this.max) {
+                    this.current = val;
+                    this.updateTape();
+                }
+            }
+
+            reset() {
+                this.current = this.initial;
+                this.updateTape();
+            }
+        }
+
+        let birthLimitTape;
+        let survivalLimitMinTape;
+        let survivalLimitMaxTape;
+        let speedTape;
+        let numRowsTape;
+        let numColsTape;
+
+        // Make control screen draggable
+        function getOffset(el, ev) {
+            const rect = el.getBoundingClientRect();
+            return {
+                left: ev.clientX - (rect.left + window.scrollX),
+                top: ev.clientY - (rect.top + window.scrollY)
+            };
+        }
+        let diff = { left: 0, top: 0 };
+
+        window.onload = addListeners;
+
+        function addListeners() {
+            const header = document.getElementById('controls-header');
+            const headerText = document.getElementById('headerText');
+            const controlsDiv = document.getElementById('controls');
+            const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
+            const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
+            const toggleControlsBtn = document.getElementById('toggleControlsBtn');
+
+            if (window.innerWidth > 768) {
+                header.addEventListener('mousedown', mouseDown, false);
+                controls.classList.remove('collapsed');
+                increaseSpeedBtn.classList.add('hidden');
+                decreaseSpeedBtn.classList.add('hidden');
+                toggleControlsBtn.classList.add('hidden');
+            } else {
+                controls.classList.remove('collapsed');
+                increaseSpeedBtn.classList.add('hidden');
+                decreaseSpeedBtn.classList.add('hidden');
+                toggleControlsBtn.classList.remove('hidden');
+                header.style.cursor = 'default';
+                headerText.textContent = 'Controls';
+
+                // Extra rows for mobile!!
+                rows = 20;
+                prevRows = 20;
+                randomGrid();
+            }
+
+
+            window.addEventListener('mouseup', mouseUp, false);
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                drawGrid();
+
+                if (window.innerWidth <= 768) {
+                    controls.classList.remove('collapsed');
+                    increaseSpeedBtn.classList.add('hidden');
+                    decreaseSpeedBtn.classList.add('hidden');
+                    toggleControlsBtn.classList.remove('hidden');
+                    header.removeEventListener('mousedown', mouseDown);
+                    header.style.cursor = 'default';
+                    headerText.textContent = 'Controls';
+                    controls.style.removeProperty('top');
+                    controls.style.removeProperty('left');
+                } else {
+                    controls.classList.remove('collapsed');
+                    increaseSpeedBtn.classList.add('hidden');
+                    decreaseSpeedBtn.classList.add('hidden');
+                    toggleControlsBtn.classList.add('hidden');
+                    header.addEventListener('mousedown', mouseDown, false);
+                    header.style.cursor = 'move';
+                    headerText.textContent = 'Controls - Drag to move';
+                }
+            }, false);
+
+            // Build tapes
+            speedTape = new TapeInput(document.getElementById('slider-container'), { min: 0, max: 10, initial: updateSpeed });
+            numRowsTape = new TapeInput(document.getElementById('num-rows-container'), { min: 1, max: 100, initial: rows, scrollDelta: 10 });
+            numColsTape = new TapeInput(document.getElementById('num-cols-container'), { min: 1, max: 100, initial: cols, scrollDelta: 10 });
+            birthLimitTape = new TapeInput(document.getElementById('birth-limit-container'), { min: 1, max: 8, initial: birthLimit });
+            survivalLimitMinTape = new TapeInput(document.getElementById('survival-limit-min-container'), { min: 1, max: 8, initial: survivalLimit[0] });
+            survivalLimitMaxTape = new TapeInput(document.getElementById('survival-limit-max-container'), { min: 1, max: 8, initial: survivalLimit[1] });
+
+            // Initial setup
+            resizeCanvas();
+            updateConditions();
+            drawGrid();
+            startGame();
+        }
+
+        function mouseUp() {
+            window.removeEventListener('mousemove', divMove, true);
+
+            const div = document.getElementById('controls');
+            const rect = div.getBoundingClientRect();
+
+            const padding = 10; // Optional buffer from edges
+            const maxX = window.innerWidth - rect.width - padding;
+            const maxY = window.innerHeight - rect.height - padding;
+
+            let newLeft = parseInt(div.style.left, 10);
+            let newTop = parseInt(div.style.top, 10);
+
+            // Clamp position
+            newLeft = Math.min(Math.max(newLeft, padding), maxX);
+            newTop = Math.min(Math.max(newTop, padding), maxY);
+
+            div.style.left = newLeft + 'px';
+            div.style.top = newTop + 'px';
+        }
+
+        function mouseDown(e) {
+            const div = document.getElementById('controls');
+            diff = getOffset(div, e);
+
+            window.addEventListener('mousemove', divMove, true);
+        }
+
+        function divMove(e) {
+            const div = document.getElementById('controls');
+            div.style.top = (e.clientY - diff.top) + 'px';
+            div.style.left = (e.clientX - diff.left) + 'px';
+        }
+
+        // Make canvas fullscreen
+        const canvas = document.getElementById('gameCanvas');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let navHeight = 0;
+            if (window.innerWidth <= 768) {
+                const controls = document.getElementById('controls');
+                navHeight = controls.offsetHeight;
+            }
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - navHeight;
+            calculateGridMetrics();
+        }
+
+        const ctx = canvas.getContext('2d');
+
+        // Customizable grid size
+        let cols = 20;
+        let rows = 10;
+
+        let prevCols = cols;
+        let prevRows = rows;
+
+        let grid = null;
+
+        function resetGrid() {
+            grid = null;
+            grid = new Array(cols);
+            for (let i = 0; i < cols; i++) {
+                grid[i] = new Uint8Array(rows);
+            }
+        }
+
+        function randomGrid() {
+            grid = null;
+            grid = new Array(cols);
+            for (let r = 0; r < cols; r++) {
+                const row = new Uint8Array(rows);
+                // Batched random generation for performance, probably not necessary for small grids
+                for (let i = 0; i < rows; i += 32) {
+                    const rand = Math.floor(Math.random() * 0xFFFFFFFF);
+                    for (let j = 0; j < 32 && i + j < rows; j++) {
+                        row[i + j] = (rand >> j) & 1;
+                    }
+                }
+                grid[r] = row;
+            }
+        }
+
+        randomGrid();
+
+        // Cell size and grid offset (recomputed on resize)
+        let cellSize = 0;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function calculateGridMetrics() {
+            // Fit grid to canvas while maintaining square cells
+            const maxCellWidth = canvas.width / cols;
+            const maxCellHeight = canvas.height / rows;
+            cellSize = Math.floor(Math.min(maxCellWidth, maxCellHeight));
+
+            // Center the grid
+            const gridWidth = cellSize * cols;
+            const gridHeight = cellSize * rows;
+            offsetX = Math.floor((canvas.width - gridWidth) / 2);
+            offsetY = Math.floor((canvas.height - gridHeight) / 2);
+        }
+
+        // Customizable Life and Death Conditions
+        let birthLimit = 3; // Number of neighbors to become alive
+        let survivalLimit = [2, 4]; // Number of neighbors to stay alive
+
+        let updateSpeed = 1; // Simulation speed (updates per second)
+
+        // Mouse interaction for creating cells
+        let isMouseDown = false;
+        let drawMode = null;
+        let gameInterval = null;
+
+        // Get the number of neighbors for a cell (including wraparound behavior)
+        function getNeighborCount(x, y) {
+            let count = 0;
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i === 0 && j === 0) continue;
+                    let nx = (x + i + cols) % cols;
+                    let ny = (y + j + rows) % rows;
+                    count += grid[nx][ny];
+                }
+            }
+            return count;
+        }
+
+        // Update the grid based on the current state and rules
+        function updateBoard() {
+            let newGrid = new Array(cols);
+            for (let i = 0; i < cols; i++) {
+                newGrid[i] = new Array(rows).fill(0);
+            }
+
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    const neighbors = getNeighborCount(x, y);
+                    if (grid[x][y] === 1) {
+                        if (neighbors >= survivalLimit[0] && neighbors <= survivalLimit[1]) {
+                            newGrid[x][y] = 1;
+                        }
+                    } else {
+                        if (neighbors === birthLimit) {
+                            newGrid[x][y] = 1;
+                        }
+                    }
+                }
+            }
+            grid = newGrid; // Update the grid for the next generation
+        }
+
+        // Draw the grid on the canvas
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    ctx.fillStyle = grid[x][y] === 1 ? 'black' : 'white';
+                    const drawX = offsetX + x * cellSize;
+                    const drawY = offsetY + y * cellSize;
+                    ctx.fillRect(drawX, drawY, cellSize, cellSize);
+                    ctx.strokeRect(drawX, drawY, cellSize, cellSize);
+                }
+            }
+        }
+
+        // Start the game loop with adjustable speed
+        function startGame() {
+            if (gameInterval) {
+                clearInterval(gameInterval);
+            }
+            if (updateSpeed !== 0) {
+                gameInterval = setInterval(() => {
+                    updateBoard();
+                    drawGrid();
+                }, 1000 / updateSpeed); // Update at intervals based on speed (in ms)
+            }
+        }
+
+        // Update the conditions based on user input
+        function updateConditions() {
+            birthLimit = birthLimitTape.getValue();
+            survivalLimit = [
+                survivalLimitMinTape.getValue(),
+                survivalLimitMaxTape.getValue()
+            ]
+
+            rows = numRowsTape.getValue();
+            cols = numColsTape.getValue();
+
+            // Only update grid size if it has changed
+            if (prevCols !== cols || prevRows !== rows) {
+                prevCols = cols;
+                prevRows = rows;
+                resetGrid();
+                calculateGridMetrics();
+                drawGrid();
+            }
+
+            updateSpeed = speedTape.getValue();
+        }
+
+        function clearGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            for (let x = 0; x < cols; x++) {
+                for (let y = 0; y < rows; y++) {
+                    grid[x][y] = 0;
+                    const drawX = offsetX + x * cellSize;
+                    const drawY = offsetY + y * cellSize;
+                    ctx.fillRect(drawX, drawY, cellSize, cellSize);
+                    ctx.strokeRect(drawX, drawY, cellSize, cellSize);
+                }
+            }
+        }
+
+        function resetConditions() {
+            birthLimitTape.reset();
+            birthLimitTape.reset();
+            survivalLimitMinTape.reset();
+            survivalLimitMaxTape.reset();
+
+            speedTape.reset();
+            updateSpeed = speedTape.getValue();
+
+            // Update game speed
+            startGame();
+        }
+
+        // Handle mouse events to create or remove cells
+        canvas.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            const x = Math.floor((event.offsetX - offsetX) / cellSize);
+            const y = Math.floor((event.offsetY - offsetY) / cellSize);
+            if (x < 0 || x >= cols || y < 0 || y >= rows) {
+                return;
+            }
+            drawMode = grid[x][y] === 0 ? 1 : 0;
+            createCell(e);
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isMouseDown = false;
+            drawMode = null;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                createCell(e);
+            }
+        });
+
+        // Create or toggle cell based on mouse position
+        function createCell(event) {
+            const x = Math.floor((event.offsetX - offsetX) / cellSize);
+            const y = Math.floor((event.offsetY - offsetY) / cellSize);
+            if (x < 0 || x >= cols || y < 0 || y >= rows) {
+                return;
+            }
+            grid[x][y] = drawMode;
+            drawGrid(); // Redraw grid after change
+        }
+
+        // Mobile events
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', () => {
+            isMouseDown = false;
+            drawMode = null;
+        });
+
+        function getTouchPos(touch) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: Math.floor((touch.clientX - rect.left - offsetX) / cellSize),
+                y: Math.floor((touch.clientY - rect.top - offsetY) / cellSize)
+            };
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const pos = getTouchPos(touch);
+
+            if (pos.x < 0 || pos.x >= cols || pos.y < 0 || pos.y >= rows) return;
+
+            isMouseDown = true;
+            drawMode = grid[pos.x][pos.y] === 0 ? 1 : 0;
+            grid[pos.x][pos.y] = drawMode;
+            drawGrid();
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isMouseDown) return;
+
+            const touch = e.touches[0];
+            const pos = getTouchPos(touch);
+
+            if (pos.x < 0 || pos.x >= cols || pos.y < 0 || pos.y >= rows) return;
+
+            grid[pos.x][pos.y] = drawMode;
+            drawGrid();
+        }
+
+        // Mobile collapse buttons
+        const controls = document.getElementById('controls');
+        const toggleBtn = document.getElementById('toggleControlsBtn');
+        const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
+        const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
+
+
+        toggleBtn.addEventListener('click', () => {
+            controls.classList.toggle('collapsed');
+            increaseSpeedBtn.classList.toggle('hidden');
+            decreaseSpeedBtn.classList.toggle('hidden');
+            resizeCanvas();
+            drawGrid();
+        });
+
+        increaseSpeedBtn.addEventListener('click', () => {
+            if (updateSpeed < 10) {
+                updateSpeed++;
+                speedTape.setValue(updateSpeed);
+                startGame();
+            }
+        });
+
+        decreaseSpeedBtn.addEventListener('click', () => {
+            if (updateSpeed > 0) {
+                updateSpeed--;
+                speedTape.setValue(updateSpeed);
+                startGame();
+            }
+        });
+
+        const helpTip = document.getElementById('helpTip');
+    </script>
+
+</body>
+
+</html>

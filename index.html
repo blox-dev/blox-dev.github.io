@@ -16,6 +16,8 @@
             --link-hover: #1d4ed8;
             --pinned-border: #3b82f6;
             --pinned-bg: #eff6ff;
+            --pinned2-border: #f59e0b;
+            --pinned2-bg: #fffbeb;
         }
 
         body.dark-mode {
@@ -27,6 +29,8 @@
             --link-hover: #2563eb;
             --pinned-border: #60a5fa;
             --pinned-bg: #1e40af;
+            --pinned2-border: #fbbf24;
+            --pinned2-bg: #78350f;
         }
 
         * {
@@ -104,6 +108,16 @@
             background: var(--pinned-bg);
         }
 
+        .project.pinned2 {
+            border: 3px solid var(--pinned2-border);
+            background: var(--pinned2-bg);
+        }
+
+        /* body.dark-mode .project.pinned2 {
+            border: 3px solid #fbbf24;
+            background: #78350f;
+        } */
+
         .project h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
@@ -144,12 +158,12 @@
         <div class="section">
             <h2>Personal Projects</h2>
             <div class="project-list">
-                <div class="project pinned">
+                <div class="project pinned2">
                     <h3>Eurovault</h3>
                     <div class="details">Language: Javascript</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/Eurovault" target="_blank">🔗 GitHub</a>
-                        <a href="demos/eurovault.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/live/eurovault/index.html" target="_blank">☁️ Live version</a>
                     </div>
                     <p>Interactive browser application provide meaningful statistics and data visualisation to people considering to relocate in the EU.</p>
                 </div>
@@ -158,8 +172,8 @@
                     <div class="details">Language: TypeScript/Python 3</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/flow-documentation" target="_blank">🔗 GitHub</a>
-                        <a href="demos/flow_documentation_demo.mp4" target="_blank">▶️ FlowDoc Demo</a>
-                        <a href="demos/maintainer_lookup_demo.mp4" target="_blank">▶️ ML Demo</a>
+                        <a href="demos/video/flow_documentation_demo.mp4" target="_blank">▶️ FlowDoc Demo</a>
+                        <a href="demos/video/maintainer_lookup_demo.mp4" target="_blank">▶️ ML Demo</a>
                     </div>
                     <p>VSCode extension that helps developers more easily find code maintainers in their company / better understand the microservice-based code architecture.</p>
                 </div>
@@ -168,7 +182,7 @@
                     <div class="details">Language: Javascript</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/SecureChat" target="_blank">🔗 GitHub</a>
-                        <a href="demos/securechat.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/securechat.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>Secure messaging web application with end-to-end encryption, socket-based communication, Oauth login support, and Docker-based deployment.</p>
                 </div>
@@ -186,7 +200,7 @@
                     <div class="details">Language: Python 3</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/Python_Scrabble" target="_blank">🔗 GitHub</a>
-                        <a href="demos/python_scrabble.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/python_scrabble.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>Python implementation of Scrabble using the Tkinter GUI library.</p>
                 </div>
@@ -195,7 +209,7 @@
                     <div class="details">Language: C++ (SDL2)</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/Solitaire" target="_blank">🔗 GitHub</a>
-                        <a href="demos/cpp_solitaire.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/cpp_solitaire.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>C++ implementation of the lesser-known Solitaire board game.</p>
                 </div>
@@ -203,7 +217,7 @@
                     <h3>Game of Life</h3>
                     <div class="details">Language: Javascript</div>
                     <div class="links">
-                        <a href="games/gol.html" target="_blank">☁️ Live version</a>
+                        <a href="demos/live/gol/index.html" target="_blank">☁️ Live version</a>
                     </div>
                     <p>Javascript implementation of Conway's Game of Life with customisable rules.</p>
                 </div>
@@ -220,7 +234,7 @@
                     <div class="details">Language: Haskell</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/BDDReduction" target="_blank">🔗 GitHub</a>
-                        <a href="demos/binary_decision_diagram_haskell.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/binary_decision_diagram_haskell.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>Interactive BDD reduction tool for logical formulas.</p>
                 </div>
@@ -243,7 +257,7 @@
                     <div class="details">Language: PHP/HTML/CSS/JavaScript</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/RealQuest" target="_blank">🔗 GitHub</a>
-                        <a href="demos/realquest.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/realquest.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>Neighborhood-based multiplayer arcade game using MapBox and APIs.</p>
                 </div>
@@ -266,7 +280,7 @@
                     <div class="details">Language: C#/Unity</div>
                     <div class="links">
                         <a href="https://github.com/blox-dev/CarcassonneAR" target="_blank">🔗 GitHub</a>
-                        <a href="demos/carcasonne_ar.mp4" target="_blank">▶️ Demo</a>
+                        <a href="demos/video/carcasonne_ar.mp4" target="_blank">▶️ Demo</a>
                     </div>
                     <p>AR implementation of the Carcassonne board game using Unity and Vuforia.</p>
                 </div>
