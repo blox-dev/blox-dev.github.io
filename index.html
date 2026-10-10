@@ -1,317 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Coding Projects</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f3f4f6;
-            --text-color: #111827;
-            --card-bg: #ffffff;
-            --card-text: #374151;
-            --link-bg: #2563eb;
-            --link-hover: #1d4ed8;
-            --pinned-border: #3b82f6;
-            --pinned-bg: #eff6ff;
-            --pinned2-border: #f59e0b;
-            --pinned2-bg: #fffbeb;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stefan-Calin Crainiciuc portfolio.">
+  <meta name="theme-color" content="#111111">
+  <title>Stefan-Calin Crainiciuc Portfolio</title>
 
-        body.dark-mode {
-            --bg-color: #1f2937;
-            --text-color: #f3f4f6;
-            --card-bg: #374151;
-            --card-text: #d1d5db;
-            --link-bg: #3b82f6;
-            --link-hover: #2563eb;
-            --pinned-border: #60a5fa;
-            --pinned-bg: #1e40af;
-            --pinned2-border: #fbbf24;
-            --pinned2-bg: #78350f;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            padding: 2rem;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .dark-toggle {
-            margin-bottom: 1rem;
-            text-align: right;
-        }
-
-        .dark-toggle button {
-            background: var(--link-bg);
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .dark-toggle button:hover {
-            background: var(--link-hover);
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #d1d5db;
-            padding-bottom: 1rem;
-        }
-
-        .section {
-            margin-top: 2rem;
-        }
-
-        .section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--card-text);
-        }
-
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .project {
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background 0.3s, color 0.3s;
-        }
-
-        .project.pinned {
-            border: 3px solid var(--pinned-border);
-            background: var(--pinned-bg);
-        }
-
-        .project.pinned2 {
-            border: 3px solid var(--pinned2-border);
-            background: var(--pinned2-bg);
-        }
-
-        /* body.dark-mode .project.pinned2 {
-            border: 3px solid #fbbf24;
-            background: #78350f;
-        } */
-
-        .project h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .project .details {
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-            color: var(--card-text);
-        }
-
-        .project .links a {
-            margin-right: 1rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            background-color: var(--link-bg);
-            padding: 0.3rem 0.7rem;
-            border-radius: 0.375rem;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-
-        .project .links a:hover {
-            background-color: var(--link-hover);
-        }
-    </style>
+  <link href="public/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="public/bootstrap-icons-1.13.2/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="public/styles.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="container">
-        <div class="dark-toggle">
-            <button id="darkModeToggle">Toggle Dark Mode</button>
-        </div>
-        <h1>My Coding Projects</h1>
-
-        <div class="section">
-            <h2>Personal Projects</h2>
-            <div class="project-list">
-                <div class="project pinned2">
-                    <h3>Eurovault</h3>
-                    <div class="details">Language: Javascript</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/Eurovault" target="_blank">🔗 GitHub</a>
-                        <a href="demos/live/eurovault/index.html" target="_blank">☁️ Live version</a>
-                    </div>
-                    <p>Interactive browser application provide meaningful statistics and data visualisation to people considering to relocate in the EU.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>FlowDocumentation + MaintainerLookup</h3>
-                    <div class="details">Language: TypeScript/Python 3</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/flow-documentation" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/flow_documentation_demo.mp4" target="_blank">▶️ FlowDoc Demo</a>
-                        <a href="demos/video/maintainer_lookup_demo.mp4" target="_blank">▶️ ML Demo</a>
-                    </div>
-                    <p>VSCode extension that helps developers more easily find code maintainers in their company / better understand the microservice-based code architecture.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>SecureChat</h3>
-                    <div class="details">Language: Javascript</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/SecureChat" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/securechat.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>Secure messaging web application with end-to-end encryption, socket-based communication, Oauth login support, and Docker-based deployment.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>Libelopia</h3>
-                    <div class="details">Language: HTML/CSS/JS</div>
-                    <div class="links">
-                        <a href="https://github.com/libelopia/libelopia.github.io" target="_blank">🔗 GitHub</a>
-                        <a href="https://libelopia.com/" target="_blank">☁️ Live version</a>
-                    </div>
-                    <p>Interactive website for a visual arts studio.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>Scrabble</h3>
-                    <div class="details">Language: Python 3</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/Python_Scrabble" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/python_scrabble.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>Python implementation of Scrabble using the Tkinter GUI library.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>Solitaire</h3>
-                    <div class="details">Language: C++ (SDL2)</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/Solitaire" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/cpp_solitaire.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>C++ implementation of the lesser-known Solitaire board game.</p>
-                </div>
-                <div class="project pinned">
-                    <h3>Game of Life</h3>
-                    <div class="details">Language: Javascript</div>
-                    <div class="links">
-                        <a href="demos/live/gol/index.html" target="_blank">☁️ Live version</a>
-                    </div>
-                    <p>Javascript implementation of Conway's Game of Life with customisable rules.</p>
-                </div>
-                <div class="project">
-                    <h3>Android Weather Alarm</h3>
-                    <div class="details">Language: Java/Android</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/WeatherAlarm" target="_blank">🔗 GitHub</a>
-                    </div>
-                    <p>Android application to set alarms that display current weather information on trigger.</p>
-                </div>
-                <div class="project">
-                    <h3>Binary Decision Diagram Reduction</h3>
-                    <div class="details">Language: Haskell</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/BDDReduction" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/binary_decision_diagram_haskell.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>Interactive BDD reduction tool for logical formulas.</p>
-                </div>
-                <div class="project">
-                    <h3>Recipe Box</h3>
-                    <div class="details">Language: Python (Pytorch/Transformers)</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/recipe-box-transformers" target="_blank">🔗 GitHub</a>
-                    </div>
-                    <p>GPT-2 model trained on popular recipes to generate new ones.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Small Group Projects</h2>
-            <div class="project-list">
-                <div class="project pinned">
-                    <h3>RealQuest</h3>
-                    <div class="details">Language: PHP/HTML/CSS/JavaScript</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/RealQuest" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/realquest.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>Neighborhood-based multiplayer arcade game using MapBox and APIs.</p>
-                </div>
-                <div class="project">
-                    <h3>Breakout Neural Network</h3>
-                    <div class="details">Language: Python (TensorFlow)</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/Breakout-DQN" target="_blank">🔗 GitHub</a>
-                    </div>
-                    <p>Deep Q-Learning implementation for the Atari game Breakout.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Large Group Projects</h2>
-            <div class="project-list">
-                <div class="project pinned">
-                    <h3>CarcassonneAR</h3>
-                    <div class="details">Language: C#/Unity</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/CarcassonneAR" target="_blank">🔗 GitHub</a>
-                        <a href="demos/video/carcasonne_ar.mp4" target="_blank">▶️ Demo</a>
-                    </div>
-                    <p>AR implementation of the Carcassonne board game using Unity and Vuforia.</p>
-                </div>
-                <div class="project">
-                    <h3>Humanity Against Cards</h3>
-                    <div class="details">Language: PHP/HTML/CSS/JavaScript</div>
-                    <div class="links">
-                        <a href="https://github.com/blox-dev/HumanityAgainstCards" target="_blank">🔗 GitHub</a>
-                    </div>
-                    <p>Cards Against Humanity clone where players face AI opponents.</p>
-                </div>
-            </div>
-        </div>
+  <div class="site-shell">
+    <div class="landscape">
+      <div class="ridge ridge-back"></div>
+      <div class="ridge ridge-middle"></div>
+      <div class="ridge ridge-front"></div>
     </div>
+    <aside class="profile-panel" aria-label="Personal information">
+      <div class="profile-inner">
+        <div>
+          <header class="profile-header">
+            <h1 class="profile-name">Stefan-Calin Crainiciuc</h1>
+            <p class="profile-role">Software Engineer · Full-Stack Developer · Consultant</p>
+            
+            <div class="profile-meta">
+              <span><i class="bi bi-geo-alt" aria-hidden="true"></i> Bucharest, Romania</span>
+            </div>
 
-    <script>
-        const toggleButton = document.getElementById('darkModeToggle');
-        const body = document.body;
+            <ul class="social-links d-flex gap-1" aria-label="Social links">
+              <li>
+                <a href="https://github.com/blox-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="See GitHub Profile">
+                  <span class="social-icon"><i class="bi bi-github" aria-hidden="true"></i></span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/calin-crainiciuc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="See LinkedIn Profile">
+                  <span class="social-icon"><i class="bi bi-linkedin" aria-hidden="true"></i></span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:crainiciucc@gmail.com" aria-label="Email" title="Send Email">
+                  <span class="social-icon"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="tel:+40700000000" aria-label="Phone" title="Phone">
+                  <span class="social-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span>
+                </a>
+              </li> -->
+              <li>
+                <a href="public/Resume_Stefan_Calin_Crainiciuc_SoftwareConsultant_V3.pdf" aria-label="Resume" title="Download Resume" target="_blank">
+                  <span class="social-icon"><i class="bi bi-filetype-pdf" aria-hidden="true"></i></span>
+                </a>
+              </li>
+            </ul>
+          </header>
 
-        // Initialize theme based on saved preference
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-        }
+          <nav class="section-nav" aria-label="Section navigation">
+            <a class="section-link" href="#about">About</a>
+            <a class="section-link" href="#experience">Experience</a>
+            <a class="section-link" href="#education">Education</a>
+            <a class="section-link" href="#skills">Skills</a>
+            <a class="section-link" href="#projects">Projects</a>
+          </nav>
+        </div>
 
-        // Toggle dark mode on button click
-        toggleButton.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem('theme', theme);
-        });
-    </script>
+        <div class="profile-footer">
+          <small>Open to selected opportunities</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-panel" data-scroll-container>
+      <section id="about" class="content-section about-section">
+        <div class="about-copy">
+          <p>
+            Software Engineer with <span id="time-served">over 2 years</span> of professional experience developing, integrating, testing, and supporting scalable software solutions for SaaS and FinTech environments. Experienced in JavaScript, Python, SQL, RESTful APIs, API integration, automated testing, and relational database technologies, with hands-on involvement across the software development lifecycle from requirements analysis and solution design through development, testing, deployment, and production support. Strong track record of troubleshooting customer-facing applications, improving system performance, automating business processes, and collaborating with distributed technical and business teams. Master's Degree in Computer Science with a specialization in Data Management and Analytics.
+          </p>
+        </div>
+      </section>
+
+      <section id="experience" class="content-section">
+        <div class="section-heading-row">
+          <p class="section-kicker">EXPERIENCE</p>
+        </div>
+
+        <div class="experience-list">
+          <article class="experience-item">
+            <div class="experience-marker" aria-hidden="true"></div>
+            <div class="experience-content">
+              <div class="d-flex justify-content-between gap-4 flex-wrap">
+                <div>
+                  <h2>Software Engineer</h2>
+                  <p class="company">Bitnovel Solutions · Remote, <a href="https://bitnovel.io/">bitnovel.io</a></p>
+                </div>
+                <time class="date-range">2025 &mdash; Present</time>
+              </div>
+              <ul>
+                <li>Collaborated directly with clients to gather business requirements, assess technical feasibility and design SaaS integration solutions.</li>
+                <li>Developed and stress-tested RESTful APIs to enhance communication between client applications, backend systems, and third-party vendors, using asynchronous requests to decrease server load.</li>
+                <li>Automated most requested customer reports and queries in SQL, saving hundreds of labor hours, reducing TTI by 95%, and increasing data availability.</li>
+                <li>Authored standard operating procedures (SOP), common error and technical system documentation for 5+ projects to enable smooth handover to support team.</li>
+                <li>Collaborated with Legal team to create data anonymization systems for clients to maintain compliance with GDPR.</li>
+              </ul>
+              <div class="pill-row">
+                <span>Microsoft Azure</span><span>GDPR</span><span>FinTech</span><span>JavaScript</span><span>Solution Design</span><span>Workflow Automation</span><span>Jira</span><span>Technical Documentation</span><span>REST APIs</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-marker" aria-hidden="true"></div>
+            <div class="experience-content">
+              <div class="d-flex justify-content-between gap-4 flex-wrap">
+                <div>
+                  <h2>Full-Stack Developer</h2>
+                  <p class="company">Odoo · Grand-Rosière, Belgium, <a href="https://www.odoo.com/">odoo.com</a></p>
+                </div>
+                <time class="date-range">2022 &mdash; 2023</time>
+              </div>
+              <ul>
+                <li>Served as a technical point of contact for customers, managing issues through a structured delivery pipeline and achieving 100% resolution within SLA across 100+ customer requests, and a positive feedback rate of over 90%.</li>
+                <li>Reduced time-to-production for critical fixes by directly deploying validated changes across customer testing and production environments, shortening release cycles by 50%.</li>
+                <li>Consistently ranked in the top 20% of agents for highest percentage of first-call issue resolution.</li>
+                <li>Standardized the pull request process across a remote team of 5, increasing first-pass PR acceptance to 90%.</li>
+                <li>Implemented automated integration tests covering email integrations, reducing regression issues by 30%.</li>
+              </ul>
+              <div class="pill-row">
+                <span>Code Review</span><span>Bugfix</span><span>CI/CD</span><span>Python</span><span>OWL (React)</span><span>REST APIs</span><span>PostgreSQL</span><span>SaaS</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="education" class="content-section compact-section">
+        <div class="section-heading-row">
+          <p class="section-kicker">EDUCATION</p>
+        </div>
+
+        <article class="education-item">
+          <div>
+            <h2>MSc in Computer Science</h2>
+            <p class="company">Vrije Universiteit Brussel · Brussels, Belgium</p>
+          </div>
+          <time class="date-range">2023 &mdash; 2025</time>
+          <ul class="education-points">
+            <li>Thesis: <a href="https://wise.vub.ac.be/sites/default/files/theses/ThesisStefanCalinCrainiciuc.pdf">FlowDocs: Onboarding Software Engineers at Scale</a> &mdash; VSCode <a href="https://github.com/blox-dev/flow-documentation">extension</a> designed to onboard software engineers at scale. It visually displays complex microservice architectures and facilitates connections between new developers and senior team members.</li>
+            <li>Focus: distributed systems, data-intensive applications, information visualisation, data mining, machine learning and human-centered product development.</li>
+          </ul>
+        </article>
+
+        <article class="education-item">
+          <div>
+            <h2>BSc in Computer Science</h2>
+            <p class="company">Universitatea Alexandru Ioan Cuza · Iași, Romania</p>
+          </div>
+          <time class="date-range">2019 &mdash; 2021</time>
+          <ul class="education-points">
+            <li>Thesis: SiteML &mdash; Centralized platform for managing and accessing materials for the university's Machine Learning course, featuring templated content, multilingual support, automated PDF processing for lecture notes and presentations, and a split-view interface for efficient cross-referencing.</li>
+            <li>Focus: algorithm design, data structure optimisation, web and mobile application development, cybersecurity principles, parallel and distributed computing techniques.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="skills" class="content-section">
+        <div class="section-heading-row">
+          <p class="section-kicker">SKILLS</p>
+        </div>
+
+        <div class="stack-grid">
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-code-slash"></i></span>
+              <h3>Languages</h3>
+            </div>
+            <div class="stack-items"><span>TypeScript</span><span>JavaScript</span><span>Python</span><span>SQL</span><span>C++</span><span>C#</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-layers"></i></span>
+              <h3>Frameworks</h3>
+            </div>
+            <div class="stack-items"><span>React</span><span>Node.js</span><span>Express</span><span>Bootstrap</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-database"></i></span>
+              <h3>Data</h3>
+            </div>
+            <div class="stack-items"><span>PostgreSQL</span><span>MongoDB</span><span>MySql</span><span>Microsoft SQL Server</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-cloud"></i></span>
+              <h3>Cloud &amp; DevOps</h3>
+            </div>
+            <div class="stack-items"><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span><span>Linux</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-clipboard-check"></i></span>
+              <h3>Testing</h3>
+            </div>
+            <div class="stack-items"><span>Jest</span><span>Selenium</span><span>Pytest</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-diagram-3"></i></span>
+              <h3>Data & Productivity</h3>
+            </div>
+            <div class="stack-items"><span>Microsoft Excel</span><span>Postman</span><span>Jira</span><span>Data Manipulation</span><span>Workflow Automation</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-diagram-3"></i></span>
+              <h3>Ways of Working</h3>
+            </div>
+            <div class="stack-items"><span>System Design</span><span>Agile</span><span>Scrum</span><span>Code Review</span></div>
+          </div>
+
+          <div class="stack-group">
+            <div class="stack-heading">
+              <span class="stack-icon"><i class="bi bi-diagram-3"></i></span>
+              <h3>Business Analysis & Consulting</h3>
+            </div>
+            <div class="stack-items"><span>Requirements Engineering</span><span>Feasibility Analysis</span><span>Solution Design</span><span>User Stories </span><span>Technical Documentation</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="content-section">
+        <div class="section-heading-row">
+          <p class="section-kicker">SELECTED PROJECTS</p>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Eurovault</h2>
+              <div class="project-links">
+                <a title="Go to Eurovault Live Demo" href="public/demos/live/eurovault/index.html" aria-label="Eurovault live demo" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+                <a title="Go to Eurovault Source" href="https://github.com/blox-dev/Eurovault" aria-label="Eurovault source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">Interactive browser application provides meaningful statistics and data visualisation to people considering to relocate in the EU.</p>
+            <div class="pill-row project-pills"><span>Node.js</span><span>D3.js</span><span>JavaScript</span><span>REST API</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>FlowDocs</h2>
+              <div class="project-links">
+                <a title="Go to FlowDocs Video Demo" href="public/demos/video/flow_documentation_demo.mp4" aria-label="FlowDocs Video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to MaintainerLookup Video Demo" href="public/demos/video/maintainer_lookup_demo.mp4" aria-label="MaintainerLookup video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to FlowDocs Source" href="https://github.com/blox-dev/flow-documentation" aria-label="FlowDocs source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">VSCode extension that helps developers more easily find code maintainers in their company / better understand the microservice-based code architecture.</p>
+            <div class="pill-row project-pills"><span>VSCode API</span><span>Large Data Processing</span><span>Data Visualisation</span><span>TypeScript</span><span>Python</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>SecureChat</h2>
+              <div class="project-links">
+                <a title="Go to SecureChat Video Demo" href="public/demos/video/securechat.mp4" aria-label="SecureChat video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to SecureChat Source" href="https://github.com/blox-dev/SecureChat" aria-label="SecureChat source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">Secure messaging web application with end-to-end encryption, socket-based communication, Oauth login support, and Docker-based deployment.</p>  
+            <div class="pill-row project-pills"><span>Google Oauth2</span><span>JavaScript</span><span>JWT</span><span>E2E Encryption</span><span>Docker</span><span>CI/CD</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Libelopia</h2>
+              <div class="project-links">
+                <a title="Go to Libelopia Website" href="https://libelopia.com/" aria-label="Libelopia website" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+                <a title="Go to Libelopia Source" href="https://github.com/libelopia/libelopia.github.io" aria-label="Libelopia source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">Interactive website for a visual arts studio.</p>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Scrabble</h2>
+              <div class="project-links">
+                <a title="Go to Scrabble Video Demo" href="public/demos/video/python_scrabble.mp4" aria-label="Scrabble video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to Scrabble Source" href="https://github.com/blox-dev/Python_Scrabble" aria-label="Scrabble source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">Python implementation of Scrabble using the Tkinter GUI library.</p>
+            <div class="pill-row project-pills"><span>Python</span><span>Tkinter</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Solitaire</h2>
+              <div class="project-links">
+                <a title="Go to Solitaire Video Demo" href="public/demos/video/cpp_solitaire.mp4" aria-label="Solitaire video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to Solitaire Source" href="https://github.com/blox-dev/Solitaire" aria-label="Solitaire source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">C++ implementation of the lesser-known Solitaire board game.</p>
+            <div class="pill-row project-pills"><span>C++</span><span>SDL2</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Game of Life</h2>
+              <div class="project-links">
+                <a title="Go to Game of Life Live Demo" href="public/demos/live/gol/index.html" aria-label="Game of Life live demo" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">JavaScript implementation of Conway's Game of Life with customisable rules.</p>
+            <div class="pill-row project-pills"><span>JavaScript</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>Breakout Neural Network</h2>
+              <div class="project-links">
+                <a title="Go to Breakout Source" href="https://github.com/blox-dev/Breakout-DQN" aria-label="Breakout Source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">Deep Q-Learning Neural Network trained on the Atari game Breakout.</p>
+            <div class="pill-row project-pills"><span>Tensorflow</span><span>Neural Network</span><span>Machine Learning</span><span>Deep Q Learning</span><span>Python</span></div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-details">
+              <h2>CarcassonneAR</h2>
+              <div class="project-links">
+                <a title="Go to CarcassonneAR Video Demo" href="public/demos/video/carcasonne_ar.mp4" aria-label="CarcassonneAR video demo" target="_blank"><i class="bi bi-camera-reels"></i></a>
+                <a title="Go to CarcassonneAR Source" href="https://github.com/blox-dev/CarcassonneAR" aria-label="Carcassonne Source" target="_blank"><i class="bi bi-github"></i></a>
+              </div>
+            </div>
+            <p class="project-summary">AR implementation of the Carcassonne board game using Unity and Vuforia.</p>
+            <div class="pill-row project-pills"><span>Unity</span><span>Alternative Reality (AR)</span><span>Vuforia</span><span>C#</span></div>
+          </article>
+
+        </div>
+      </section>
+
+      <footer class="content-footer">
+        <span>© <span id="current-year"></span> Stefan-Calin Crainiciuc</span>
+        <span>Built with HTML · CSS · JavaScript · Bootstrap</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="public/script.js"></script>
 </body>
-
 </html>
